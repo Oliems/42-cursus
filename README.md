@@ -1,8 +1,13 @@
 # 42-cursus
-My projects for 42
+This repository contains all the projects I have done so far for my cursus
+at 42.
 
-## TODO
-- Cleanup B2BR folder.
-- Finish libft + cleanup.
-- Move to new folder structure.
-- Delete old repos when everything is cleaned up and checked.
+## Grades
+
+| Projects      | Grades |
+|---------------|--------|
+| libft         | 125    |
+| ft_printf     | 100    |
+| b2br          | 110    |
+| get_next_line | 100    |
+| push_swap     |        |

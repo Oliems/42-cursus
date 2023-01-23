@@ -5,53 +5,53 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/05 13:07:50 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/16 18:47:05 by mbarberi         ###   ########.fr        #
+#    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
+#    Updated: 2023/01/23 21:51:25 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	push_swap
+SRCS		:=	actions.c check.c list_utils.c main.c push_swap_utils.c setup.c \
+				solve_large.c solve_small.c solve_utils.c
+
 CC			:=	gcc
+RM			:=	rm
+
 CFLAGS		:=	-Wall -Wextra -Werror
-RM			:=	rm -f
+LDFLAGS		:=	-Wall
+RMFLAGS		:=	-f
 
-INCDIR		:=	inc
-SRCDIR		:=	src/push_swap
+SRCDIR		:=	src
 OBJDIR		:=	obj
+INCDIR		:=	inc
 
-SRC			:=	action.c \
-				check.c \
-				list_utils.c \
-				main.c \
-				push_swap_utils.c \
-				setup.c \
-				solve.c
+# Edit the $(HEADERS) variable as necessary.
+HEADERS		:=	$(INCDIR)/push_swap.h
 
-OBJS		:=	$(OBJDIR)/action.o \
-				$(OBJDIR)/check.o \
-				$(OBJDIR)/list_utils.o \
-				$(OBJDIR)/main.o \
-				$(OBJDIR)/push_swap_utils.o \
-				$(OBJDIR)/setup.o \
-				$(OBJDIR)/solve.o
+LINK.o		:=	$(CC) $(LDFLAGS)
+COMPILE.c	:=	$(CC) -I$(INCDIR) $(CFLAGS) -c
+REMOVE		:=	$(RM) $(RMFLAGS)
 
-OBJ := $($(SRCDIR)/$(SRC):%.c=$(OBJDIR)/%.o)
+SOURCES		:=	$(addprefix $(SRCDIR)/, $(SRCS))
+OBJECTS		:=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
 
-$(info $(OBJ))
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(@D)
+	$(COMPILE.c) $< -o $@
 
 all: $(NAME)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) -c $(CFLAGS) $< -o $@
+$(OBJECTS): $(HEADERS) Makefile
 
-$(NAME): $(OBJ)
-	${CC} -o ${NAME} ${OBJS}
+$(NAME): $(OBJECTS)
+	$(LINK.o) -o $(NAME) $^
 
 clean:
-	$(RM) $(OBJS)
+	$(REMOVE) $(OBJECTS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(REMOVE) $(NAME)
 
 re: fclean all
 
