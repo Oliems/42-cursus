@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:19:24 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/24 17:47:36 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:18:21 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void give_score(t_register *ra, t_register *rb)
 {
 	int     i;
 	int     med;
-	t_node *p;
+	t_node	*p;
 
 	i = 1;
 	p = rb->head;
@@ -97,13 +97,15 @@ static void give_score(t_register *ra, t_register *rb)
 		{
 			p->score = i + (ra->head->index - p->index);
 			if (ra->tail->index != ra->topi)
-				p->score += 10 * (ra->tail->index - p->index);
+				if (p->index < ra->tail->index)
+					p->score += ra->topi;
 		}
 		else if (i > med)
 		{
 			p->score = ((rb->size - i) + 2) + (ra->head->index - p->index);
 			if (ra->tail->index != ra->topi)
-				p->score += 10 * (ra->tail->index - p->index);
+				if (p->index < ra->tail->index)
+					p->score += ra->topi;
 		}
 		i++;
 		p = p->next;
