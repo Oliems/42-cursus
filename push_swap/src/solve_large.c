@@ -6,11 +6,13 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:19:24 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/23 18:06:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:47:36 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+// ../../../../push_swap
 
 /*
 + Phase 1
@@ -42,7 +44,6 @@
       rotations rr and rrr.
 */
 
-/* TODO Add specialized algorithm for n < 100 */
 static int	pick_slice_size(t_register *ra, t_register *rb)
 {
 	int	size;
@@ -57,7 +58,6 @@ static int	pick_slice_size(t_register *ra, t_register *rb)
 	return (2 * (ra->size / 3));
 }
 
-/* TODO last three numbers in A are not the biggest */
 static void	push_slice(t_register *ra, t_register *rb)
 {
 	int	lo;
@@ -94,9 +94,17 @@ static void give_score(t_register *ra, t_register *rb)
 	while (p)
 	{
 		if (i <= med)
+		{
 			p->score = i + (ra->head->index - p->index);
+			if (ra->tail->index != ra->topi)
+				p->score += 10 * (ra->tail->index - p->index);
+		}
 		else if (i > med)
+		{
 			p->score = ((rb->size - i) + 2) + (ra->head->index - p->index);
+			if (ra->tail->index != ra->topi)
+				p->score += 10 * (ra->tail->index - p->index);
+		}
 		i++;
 		p = p->next;
 	}
@@ -117,8 +125,6 @@ static void merge(t_register *ra, t_register *rb)
 		perform_action(ra, rb, PA);
 		while (ra->head->index > ra->tail->index)
 			perform_action(ra, rb, RRA);
-		while (ra->tail->index == ra->head->index - 1)
-			perform_action(ra, rb, RRA);
 	}
 }
 
@@ -134,28 +140,5 @@ void	solve(t_register *ra, t_register *rb)
 	if (ra->size <= 5)
 		return (solve_small(ra, rb));
 	else
-		return(solve_large(ra, rb));
+		return (solve_large(ra, rb));
 }
-
-/* 	printf("LEFT IN A\n");
-	for (t_node *t = ra->head; t; t = t->next)
-		printf("n = %d, index = %d, score = %d\n", t->data, t->index, t->score); */
-/* 	printf("\n\nSCORES\n");
-	for (t_node *t = rb->head; t; t = t->next)
-		printf("n = %d, index = %d, score = %d\n", t->data, t->index, t->score); */
-
-/* static void merge(t_register *ra, t_register *rb)
-{
-	while (rb->size)
-	{
-		while (find_gap(ra))
-			perform_action(ra, rb, RA);
-		give_score(ra, rb);
-		to_top(ra, rb, locate_index(rb, find_low_score(rb)), B);
-		perform_action(ra, rb, PA);
-		if (ra->head->index > ra->tail->index)
-			perform_action(ra, rb, RRA);
-		while (ra->tail->index == ra->head->index - 1)
-			perform_action(ra, rb, RRA);
-	}
-} */
