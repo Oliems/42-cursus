@@ -6,14 +6,14 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/26 16:27:24 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/01/26 17:58:26 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	push_swap
 SRCS		:=	actions.c check.c list_utils.c main.c push_swap_utils.c setup.c \
-				solve_large.c solve_small.c solve_utils.c
+				solve_large.c solve_small.c solve_utils_large.c solve_utils.c
 
 CC			:=	gcc
 RM			:=	rm

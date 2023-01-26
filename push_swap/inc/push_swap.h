@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:07:22 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 14:15:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:59:22 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ enum e_stacks
 	B
 };
 
+/* MAIN */
+void		solve(t_register *ra, t_register *rb);
+
 /* CHECK */
 int			check_arguments(int argc, char **argv);
 
@@ -70,7 +73,7 @@ void		setup(t_register *ra, t_register *rb, int argc, char **argv);
 void		perform_action(t_register *a, t_register *b, int action);
 
 /* SOLVE_LARGE */
-void		solve(t_register *ra, t_register *rb);
+void		solve_large(t_register *ra, t_register *rb);
 
 /* SOLVE_SMALL */
 void		solve_small(t_register *ra, t_register *rb);
@@ -81,6 +84,10 @@ int			find_low_score(t_register *r);
 int			find_gap(t_register *r);
 int			locate_index(t_register *r, int i);
 void		to_top(t_register *ra, t_register *rb, int k, int stack);
+
+/* SOLVE_UTILS_LARGE */
+void		to_top_large(t_register *ra, t_register *rb, int k);
+void		optimize_rotate(t_register *ra, t_register *rb, int action);
 
 /* PUSH_SWAP_UTILS */
 int			ft_isdigit(int c);
