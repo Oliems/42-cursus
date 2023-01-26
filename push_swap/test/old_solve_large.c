@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve_large.c                                      :+:      :+:    :+:   */
+/*   old_solve_large.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:19:24 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 14:53:35 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:47:17 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,52 +44,48 @@
       rotations rr and rrr.
 */
 
-static int pick_slice_size(t_register *ra, t_register *rb)
+/* for n = 100 B should contain 6 groups of colors, for n = 500 12 groups */
+static int	pick_slice_size(t_register *ra, t_register *rb)
 {
-	int size;
+	int	size;
 
 	size = ra->size + rb->size;
 	if ((size > 5) && (size <= 400))
-		return (3);
-	else if ((size > 400) && (size <= 800))
-		return (6);
+		return (2 * (ra->size / 3));
+	else if (size > 400 && size <= 800)
+		return (4 * (ra->size / 6));
 	else if (size > 800)
-		return (9);
-	return (3);
+		return (6 * (ra->size / 9));
+	return (2 * (ra->size / 3));
 }
 
-static void push_slice(t_register *ra, t_register *rb)
+static void	push_slice(t_register *ra, t_register *rb)
 {
-	int k;
-	int lo;
-	int up;
+	int	lo;
+	int	up;
 
 	up = 0;
-	k = pick_slice_size(ra, rb);
-	while (ra->size > 4)
+	while (1)
 	{
 		lo = up;
-		up += 2 * (ra->size / k);
+		up += pick_slice_size(ra, rb);
 		while (rb->size != up)
 		{
 			while (ra->head->index > up)
 				perform_action(ra, rb, RA);
 			perform_action(ra, rb, PB);
 			if (rb->head && (rb->head->index < ((lo + up) / 2)))
-			{
-				if (ra->head->index > up)
-					perform_action(ra, rb, RR);
-				else
-					perform_action(ra, rb, RB);
-			}
+				perform_action(ra, rb, RB);
+			if (ra->size == 3 || ra->size == 4 || ra->size == 5)
+				return ;
 		}
 	}
 }
 
-// Rules :
-// new item must be smaller than top item
-// new item must be larger than last item if there is a run at the bottom of A
-// bring items back slice by slice in the opposite order they were brought to B so last slice in is the first to go
+/* Give a score to each element of the stack. Lower is better. */
+/* Score must be based on the accessibility of the number, i.e the best number
+is the most accessible as long as n.index < head.index and n.index > tail.index
+if tail.index != r.topi*/
 static void give_score(t_register *ra, t_register *rb)
 {
 	int     i;
@@ -118,11 +114,10 @@ static void merge(t_register *ra, t_register *rb)
 	{
 		while (find_gap(ra))
 			perform_action(ra, rb, RA);
-		give_score(ra, rb);
-		to_top(ra, rb, locate_index(rb, find_low_score(rb)), B);
+		find_best_cand(ra, rb);
 		perform_action(ra, rb, PA);
 		while (ra->tail->index == ra->head->index - 1)
-			perform_action(ra, rb, RRA);
+				perform_action(ra, rb, RRA);
 	}
 }
 
@@ -130,15 +125,50 @@ static void solve_large(t_register *ra, t_register *rb)
 {
 	push_slice(ra, rb);
 	solve_small(ra, rb);
-	merge(ra, rb);
-	/* 	for (t_node *i = rb->head; i; i = i->next)
-	        printf("i = %d\n", i->index); */
+	//merge(ra, rb);
 }
 
-void solve(t_register *ra, t_register *rb)
+void	solve(t_register *ra, t_register *rb)
 {
 	if (ra->size <= 5)
 		return (solve_small(ra, rb));
 	else
 		return (solve_large(ra, rb));
 }
+
+/* static void merge(t_register *ra, t_register *rb)
+{
+	while (rb->size)
+	{
+		while (find_gap(ra))
+			perform_action(ra, rb, RA);
+		give_score(ra, rb);
+		to_top(ra, rb, locate_index(rb, find_low_score(rb)), B);
+		perform_action(ra, rb, PA);
+		while (ra->tail->index == ra->head->index - 1)
+				perform_action(ra, rb, RRA);
+	}
+} */
+
+/* static void give_score(t_register *ra, t_register *rb)
+{
+	int     i;
+	int     med;
+	t_node *p;
+
+	i = 1;
+	p = rb->head;
+	med = (rb->size + (rb->size % 2 == 1)) / 2;
+	while (p)
+	{
+		if (i <= med)
+			p->score = i;
+		else
+			p->score = ((rb->size - i) + 1);
+		p->score *= (p->index < ra->head->index);
+		if (ra->tail->index != ra->topi)
+			p->score *= (p->index < ra->tail->index);
+		i++;
+		p = p->next;
+	}
+} */

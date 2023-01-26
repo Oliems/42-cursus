@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/23 21:51:25 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/01/25 14:08:00 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS		:=	actions.c check.c list_utils.c main.c push_swap_utils.c setup.c \
 CC			:=	gcc
 RM			:=	rm
 
-CFLAGS		:=	-Wall -Wextra -Werror
+CFLAGS		:=	-Wall -Wextra # -Werror
 LDFLAGS		:=	-Wall
 RMFLAGS		:=	-f
 

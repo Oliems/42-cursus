@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:30:25 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/23 18:06:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:28:15 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,4 +139,26 @@ int locate_index(t_register *r, int i)
 		while (k--)
 			perform_action(ra, rb, RRA);
 	}
+} */
+
+
+/* int find_low_score(t_register *r)
+{
+	int     i;
+	t_node *p;
+	t_node *lo;
+
+	p = r->head;
+	lo = p;
+	i = p->score;
+	while (p)
+	{
+		if (p->score < i)
+		{
+			i = p->score;
+			lo = p;
+		}
+		p = p->next;
+	}
+	return (lo->index);
 } */
