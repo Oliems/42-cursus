@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:07:22 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 17:59:22 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:10:25 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <limits.h>
 # include <stdint.h>
-# include <stdio.h> /* DEBUG */
 # include <stdlib.h>
 # include <unistd.h>
 
