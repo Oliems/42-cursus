@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:01:34 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/23 18:06:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:06:37 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	free_all(t_register *r)
 /* Check if the stack is sorted. Return 1 if it is. */
 int	is_sorted(t_register *r)
 {
-	t_node *k;
-	t_node *l;
+	t_node	*k;
+	t_node	*l;
 
 	k = r->head;
 	l = r->head->next;

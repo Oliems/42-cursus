@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:13:35 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/23 18:06:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:10:11 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static void	solve_three(t_register *ra, t_register *rb)
 
 static void	solve_four(t_register *ra, t_register *rb)
 {
-	int     i;
+	int		i;
 	int		c;
-	t_node *p;
+	t_node	*p;
 
 	c = 1;
 	p = ra->head;
@@ -62,13 +62,11 @@ static void	solve_four(t_register *ra, t_register *rb)
 	perform_action(ra, rb, PA);
 }
 
-/* TODO Find the two smallest numbers so that we can extract whichever is
-closest to the top, might save a few moves */
 static void	solve_five(t_register *ra, t_register *rb)
 {
-	int     i;
+	int		i;
 	int		c;
-	t_node *p;
+	t_node	*p;
 
 	c = 1;
 	p = ra->head;
@@ -86,7 +84,7 @@ static void	solve_five(t_register *ra, t_register *rb)
 	perform_action(ra, rb, PA);
 }
 
-void solve_small(t_register *ra, t_register *rb)
+void	solve_small(t_register *ra, t_register *rb)
 {
 	if (is_sorted(ra))
 		return ;

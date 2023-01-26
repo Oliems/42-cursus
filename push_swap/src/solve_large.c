@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:19:24 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 14:53:35 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:12:34 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@
       rotations rr and rrr.
 */
 
-static int pick_slice_size(t_register *ra, t_register *rb)
+static int	pick_slice_size(t_register *ra, t_register *rb)
 {
-	int size;
+	int	size;
 
 	size = ra->size + rb->size;
 	if ((size > 5) && (size <= 400))
@@ -58,11 +58,11 @@ static int pick_slice_size(t_register *ra, t_register *rb)
 	return (3);
 }
 
-static void push_slice(t_register *ra, t_register *rb)
+static void	push_slice(t_register *ra, t_register *rb)
 {
-	int k;
-	int lo;
-	int up;
+	int	k;
+	int	lo;
+	int	up;
 
 	up = 0;
 	k = pick_slice_size(ra, rb);
@@ -86,15 +86,11 @@ static void push_slice(t_register *ra, t_register *rb)
 	}
 }
 
-// Rules :
-// new item must be smaller than top item
-// new item must be larger than last item if there is a run at the bottom of A
-// bring items back slice by slice in the opposite order they were brought to B so last slice in is the first to go
-static void give_score(t_register *ra, t_register *rb)
+static void	give_score(t_register *ra, t_register *rb)
 {
-	int     i;
-	int     med;
-	t_node *p;
+	int		i;
+	int		med;
+	t_node	*p;
 
 	i = 1;
 	p = rb->head;
@@ -112,30 +108,62 @@ static void give_score(t_register *ra, t_register *rb)
 	}
 }
 
-static void merge(t_register *ra, t_register *rb)
+static void	optimize_rotate(t_register *ra, t_register *rb, int action)
+{
+	if (action == RR)
+	{
+		if (find_gap(ra))
+			perform_action(ra, rb, RR);
+		else
+			perform_action(ra, rb, RB);
+	}
+	else
+	{
+		if (ra->tail->index == ra->head->index - 1)
+			perform_action(ra, rb, RRR);
+		else
+			perform_action(ra, rb, RRB);
+	}
+}
+
+static void	to_top_large(t_register *ra, t_register *rb, int k)
+{
+	int			med;
+
+	med = (rb->size + (rb->size % 2 == 1)) / 2;
+	if (k <= med)
+		while (--k)
+			optimize_rotate(ra, rb, RR);
+	else if (k > med)
+	{
+		k = 1 + (rb->size - k);
+		while (k--)
+			optimize_rotate(ra, rb, RRR);
+	}
+}
+
+static void	merge(t_register *ra, t_register *rb)
 {
 	while (rb->size)
 	{
+		give_score(ra, rb);
+		to_top_large(ra, rb, locate_index(rb, find_low_score(rb)));
+		perform_action(ra, rb, PA);
 		while (find_gap(ra))
 			perform_action(ra, rb, RA);
-		give_score(ra, rb);
-		to_top(ra, rb, locate_index(rb, find_low_score(rb)), B);
-		perform_action(ra, rb, PA);
 		while (ra->tail->index == ra->head->index - 1)
 			perform_action(ra, rb, RRA);
 	}
 }
 
-static void solve_large(t_register *ra, t_register *rb)
+static void	solve_large(t_register *ra, t_register *rb)
 {
 	push_slice(ra, rb);
 	solve_small(ra, rb);
 	merge(ra, rb);
-	/* 	for (t_node *i = rb->head; i; i = i->next)
-	        printf("i = %d\n", i->index); */
 }
 
-void solve(t_register *ra, t_register *rb)
+void	solve(t_register *ra, t_register *rb)
 {
 	if (ra->size <= 5)
 		return (solve_small(ra, rb));
