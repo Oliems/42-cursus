@@ -6,9 +6,12 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/23 22:08:14 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/01/27 15:11:25 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# If necessary we can use $(info VARIABLE:$(VARIABLE)) to debug.
+# We can also use make -d
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	template
