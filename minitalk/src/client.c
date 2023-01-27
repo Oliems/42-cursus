@@ -6,8 +6,13 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:03:27 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 18:03:28 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:16:37 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
+
+int main(int argc, char **argv)
+{
+	
+}

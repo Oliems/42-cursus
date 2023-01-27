@@ -6,13 +6,17 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/23 22:08:14 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/01/27 16:29:05 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
-NAME		:=	template
-SRCS		:=	source.c
+SERVER		:=	server
+CLIENT		:=	client
+
+SRCS_SE		:=	server.c
+SRCS_CL		:=	client.c
+SRCS_UT		:=	ft_printf.c ft_printf_utils.c
 
 CC			:=	gcc
 RM			:=	rm
@@ -26,31 +30,41 @@ OBJDIR		:=	obj
 INCDIR		:=	inc
 
 # Edit the $(HEADERS) variable as necessary.
-HEADERS		:=	$(INCDIR)/header.h
+HEADERS		:=	$(INCDIR)/minitalk.h
 
 LINK.o		:=	$(CC) $(LDFLAGS)
 COMPILE.c	:=	$(CC) -I$(INCDIR) $(CFLAGS) -c
 REMOVE		:=	$(RM) $(RMFLAGS)
 
-SOURCES		:=	$(addprefix $(SRCDIR)/, $(SRCS))
-OBJECTS		:=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
+SRCS_SE		+=	$(SRCS_UT)
+SRCS_CL		+=	$(SRCS_UT)
+
+SOURCES_SE	:=	$(addprefix $(SRCDIR)/, $(SRCS_SE))
+SOURCES_CL	:=	$(addprefix $(SRCDIR)/, $(SRCS_CL))
+
+OBJECTS_SE	:=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES_SE))
+OBJECTS_CL	:=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES_CL))
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(@D)
 	$(COMPILE.c) $< -o $@
 
-all: $(NAME)
+all: $(SERVER) $(CLIENT)
 
-$(OBJECTS): $(HEADERS) Makefile
+$(OBJECTS_SE): $(HEADERS) Makefile
+$(OBJECTS_CL): $(HEADERS) Makefile
 
-$(NAME): $(OBJECTS)
-	$(LINK.o) -o $(NAME) $^
+$(SERVER): $(OBJECTS_SE)
+	$(LINK.o) -o $(SERVER) $^
+
+$(CLIENT): $(OBJECTS_CL)
+	$(LINK.o) -o $(CLIENT) $^
 
 clean:
-	$(REMOVE) $(OBJECTS)
+	$(REMOVE) $(OBJECTS_SE) $(OBJECTS_CL)
 
 fclean: clean
-	$(REMOVE) $(NAME)
+	$(REMOVE) $(SERVER) $(CLIENT)
 
 re: fclean all
 

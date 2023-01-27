@@ -6,8 +6,14 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:08:20 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 18:03:26 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:18:39 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
+
+int main(void)
+{
+	ft_printf("%d\n", getpid());
+	return (0);
+}
