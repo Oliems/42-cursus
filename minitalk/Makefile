@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/27 16:29:05 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/01/27 17:55:31 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CLIENT		:=	client
 
 SRCS_SE		:=	server.c
 SRCS_CL		:=	client.c
-SRCS_UT		:=	ft_printf.c ft_printf_utils.c
+SRCS_UT		:=	minitalk_utils.c
 
 CC			:=	gcc
 RM			:=	rm

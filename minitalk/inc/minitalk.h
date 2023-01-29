@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/27 14:15:42 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:06:06 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+
+int			ft_atoi(const char *nptr);
+int			ft_isnumber(const char *s);
 
 /* PRINTF */
 
