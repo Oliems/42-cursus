@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:08:20 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/01 15:46:58 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:42:10 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,32 @@
  * Compute and print the character corresponding to the bits received.
  *  @param sig The signal received, either SIGUSR1 or SIGUSR2.
  *  @param si Structure containing information about the signal's sender.
- *  @param dummy Placeholder since sa_sigaction expects a void * as its
+ *  @param ucontext Placeholder since sa_sigaction expects a void * as its
  * third argument.
  */
-static void	receive_bit(int sig, siginfo_t *si, void *dummy)
+static void	receive_bit(int sig, siginfo_t *si, void *ucontext)
 {
-	static int	i = __CHAR_BIT__ - 1;
-	static char	c = 0;
+	static unsigned char	c = 0;
+	static unsigned char	mask = 0x80;
 
-	(void) dummy;
-	sig -= SIGUSR1;
+	(void)ucontext;
 	if (kill(si->si_pid, 0) < 0)
 		sig_message(KILL_FAIL);
-	if (i < 0)
+	if (!mask)
 	{
 		if (c)
 			write(STDOUT_FILENO, &c, 1);
 		c = 0;
-		i = __CHAR_BIT__ - 1;
+		mask = 0x80;
 	}
-	c = c + (sig * ft_power(2, i--));
+	if (sig == BIT1)
+		c ^= mask;
+	mask >>= 1;
 	kill(si->si_pid, BIT_RECEIVED);
-	if (!c && !i)
+	if (!c && !mask)
 	{
-		c = 0;
-		i = __CHAR_BIT__ - 1;
 		write(1, "\n", 1);
-		kill(si->si_pid, STR_RECEIVED);
+		kill(si->si_pid, NULL_RECEIVED);
 	}
 }
 
@@ -59,8 +58,7 @@ static void	setup_signal(int sig, void (*h)(int, siginfo_t *, void *))
 	struct sigaction	sa;
 
 	sa.sa_sigaction = h;
-	sa.sa_flags = SA_SIGINFO | SA_RESTART | SA_NODEFER;
-	sigemptyset(&(sa.sa_mask));
+	sa.sa_flags = SA_SIGINFO | SA_NODEFER;
 	if (sig == SIGUSR1)
 		sigaction(SIGUSR1, &sa, 0);
 	else if (sig == SIGUSR2)

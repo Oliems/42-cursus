@@ -6,13 +6,12 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:03:27 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/01 15:47:26 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:34:25 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
 
-/* A value of 1 means the bit as been received by the server. */
 static volatile sig_atomic_t	g_received = 0;
 
 /**
@@ -23,9 +22,8 @@ static volatile sig_atomic_t	g_received = 0;
  */
 static void	signal_handler(int sig)
 {
-	if (sig == BIT_RECEIVED)
-		g_received = BIT_RECEIVED;
-	else if (sig == STR_RECEIVED)
+	g_received = sig;
+	if (sig == NULL_RECEIVED)
 		sig_message(MESSAGE_RECEIVED);
 }
 
@@ -36,19 +34,19 @@ static void	signal_handler(int sig)
  */
 static void	send_char(char c, int pid)
 {
-	int	bit;
+	unsigned char	mask;
 
-	bit = __CHAR_BIT__ - 1;
+	mask = 0x80;
 	if (kill(pid, 0) < 0)
 		sig_message(KILL_FAIL);
-	while (bit >= 0)
+	while (mask)
 	{
 		g_received = 0;
-		if (c & (1 << bit))
+		if (c & mask)
 			kill(pid, BIT1);
 		else
 			kill(pid, BIT0);
-		bit -= 1;
+		mask >>= 1;
 		while (!g_received)
 			usleep(10);
 	}
@@ -74,12 +72,13 @@ int	main(int argc, char **argv)
 	if (argc != 3 || !ft_isnumber(argv[1]))
 		sig_message(USAGE);
 	if (!(argv[2]))
-		sig_message(EMPTY);
+		sig_message(NULL_ARG);
 	else
 	{
 		signal(SIGUSR1, signal_handler);
 		signal(SIGUSR2, signal_handler);
 		send_string(argv[2], ft_atoi(argv[1]));
 	}
-	return (EXIT_SUCCESS);
+	while (1)
+		sleep(1);
 }

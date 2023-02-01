@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:22:26 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/01 15:47:34 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:09:10 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,6 @@ static uint64_t	ft_abs(int64_t i)
 		return (-i);
 	else
 		return (i);
-}
-
-int	ft_power(int nb, int power)
-{
-	int	i;
-	int	p;
-
-	i = 1;
-	p = 1;
-	if (power < 0)
-		return (0);
-	if (power == 0)
-		return (1);
-	while (i <= power)
-	{
-		p *= nb;
-		i++;
-	}
-	return (p);
 }
 
 int	ft_putnbr_fd(int64_t n, int fd)
@@ -69,7 +50,7 @@ void	sig_message(int sig)
 		write(STDERR_FILENO, "Usage: ./client <pid> <string>", 31);
 		exit(EXIT_SUCCESS);
 	}
-	else if (sig == EMPTY)
+	else if (sig == NULL_ARG)
 	{
 		write(STDERR_FILENO, "Error ARG2 is (null)", 21);
 		exit(EXIT_SUCCESS);
