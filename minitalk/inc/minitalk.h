@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/27 18:06:06 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:47:53 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,41 @@
 # define MINITALK_H
 
 # include <signal.h>
-# include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdint.h>
 
-int			ft_atoi(const char *nptr);
-int			ft_isnumber(const char *s);
+typedef struct s_server	t_server;
+typedef struct s_client	t_client;
 
-/* PRINTF */
+enum e_signals
+{
+	BIT0 = SIGUSR1,
+	BIT1 = SIGUSR2,
+	BIT_RECEIVED = SIGUSR1,
+	STR_RECEIVED = SIGUSR2
+};
 
-# define HX_LO "0123456789abcdef"
-# define HX_HI "0123456789ABCDEF"
-# define DECIM "0123456789"
+enum e_messages
+{
+	USAGE,
+	EMPTY,
+	KILL_FAIL,
+	MESSAGE_RECEIVED
+};
 
-/* FT_PRINTF */
-int			ft_printf(const char *s, ...);
-int			ft_subperc(char c, va_list *ap);
-int			ft_putchar_fd(char c, int fd);
+struct s_client
+{
+	char	*s;
+	pid_t	pid;
+};
 
-/* FT_UTILS_UTILS */
-int			ft_putstr_fd(char *s, int fd);
-int			ft_putnbr_base(uint64_t n, char *base);
-int			ft_putnbr_fd(int64_t n, int fd);
-uint64_t	ft_strlen(const char *s);
-uint64_t	ft_abs(int64_t i);
+/* UTILS_1 */
+int		ft_atoi(const char *nptr);
+int		ft_isnumber(const char *s);
+
+/* UTILS_0 */
+int		ft_putnbr_fd(int64_t n, int fd);
+int		ft_power(int nb, int power);
+void	sig_message(int sig);
 
 #endif
