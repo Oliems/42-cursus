@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/30 19:52:17 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/02/02 13:50:08 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS_UT		:=	utils_0.c utils_1.c
 CC			:=	gcc
 RM			:=	rm
 
-CFLAGS		:=	-Wall -Wextra # -Werror
+CFLAGS		:=	-Wall -Wextra -Werror
 LDFLAGS		:=	-Wall
 RMFLAGS		:=	-f
 
