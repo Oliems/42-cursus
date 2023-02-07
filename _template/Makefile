@@ -6,18 +6,18 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/01/27 15:11:25 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/02/07 16:10:35 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # If necessary we can use $(info VARIABLE:$(VARIABLE)) to debug.
-# We can also use make -d
+# We can also use make -d.
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	template
-SRCS		:=	source.c
+SRCS		:=	main.c
 
-CC			:=	gcc
+CC			:=	cc
 RM			:=	rm
 
 CFLAGS		:=	-Wall -Wextra -Werror
