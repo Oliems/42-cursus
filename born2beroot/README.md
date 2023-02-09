@@ -206,7 +206,7 @@ port forwarding in the VM settings.
 + Go to the "Network" tab, click on "Advanced" then on "Port Forwarding".
 + Fill in like in the image below.
 
-![Port Forwarding](/img/port-forwarding.png)
+![Port Forwarding](./img/port-forwarding.png)
 
 You can now connect to your VM using:
 ```
