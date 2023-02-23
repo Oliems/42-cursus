@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:30:25 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 16:10:48 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:25:24 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,17 @@ void	to_top(t_register *ra, t_register *rb, int k, int stack)
 */
 int	locate_index(t_register *r, int i)
 {
-	int		po;
+	int		pos;
 	t_node	*p;
 
-	po = 1;
+	pos = 1;
 	p = r->head;
 	while (p && p->index != i)
 	{
-		po++;
+		pos++;
 		p = p->next;
 	}
 	if (!p)
 		return (0);
-	return (po);
+	return (pos);
 }
