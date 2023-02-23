@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:07:31 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/23 15:13:19 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:13:37 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	t_register	*rb;
 
 	if (argc <= 2)
-		exit(EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 	ra = malloc(sizeof(t_register));
 	rb = malloc(sizeof(t_register));
 	if (!ra || !rb)
