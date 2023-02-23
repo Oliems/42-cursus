@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/01 19:31:22 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:39:20 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <signal.h> /* signal manipulation, see signal(7) and sigaction(2). */
 # include <stdlib.h> /* exit() and EXIT_* macros. */
 # include <unistd.h> /* write() */
+# include <stdint.h> /* uint_t */
 
 typedef struct s_server	t_server;
 typedef struct s_client	t_client;

@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:08:20 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/01 19:42:10 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:29:56 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	receive_bit(int sig, siginfo_t *si, void *ucontext)
  * response from the handler.
  * @param sig The signal received, either SIGUSR1 or SIGUSR2.
  * @param h The handler function to call whenever SIGUSR1 or SIGUSR2 is
- * received.
+ * received.	
  */
 static void	setup_signal(int sig, void (*h)(int, siginfo_t *, void *))
 {
