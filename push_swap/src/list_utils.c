@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:01:34 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 16:06:37 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:05:47 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	free_all(t_register *r)
 	t_node	*curr;
 	t_node	*next;
 
-	if (!r->head || !r)
+	if (!r)
 		return ;
 	curr = r->head;
 	while (curr)
