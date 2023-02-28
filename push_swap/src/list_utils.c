@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:01:34 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/23 16:05:47 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:07:59 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,20 @@ t_node	*new_node(int n, int index)
 }
 
 /* Add a node to the back of the list and update the register. */
-void	add_node(t_register *r, t_node *new)
+int	add_node(t_register *r, t_node *new)
 {
 	if (!r || !new)
-		return ;
+		return (-1);
 	if (!(r->head) && !(r->tail))
 	{
 		r->head = new;
 		r->tail = new;
-		return ;
+		return (0);
 	}
 	r->tail->next = new;
 	new->prev = r->tail;
 	r->tail = new;
+	return (0);
 }
 
 /* Free the linked list and the register. */

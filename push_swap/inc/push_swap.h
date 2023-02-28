@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:07:22 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 18:10:25 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:55:22 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h> /* DEBUG */
 
 typedef struct s_node		t_node;
 typedef struct s_register	t_register;
@@ -66,7 +67,7 @@ void		solve(t_register *ra, t_register *rb);
 int			check_arguments(int argc, char **argv);
 
 /* SETUP */
-void		setup(t_register *ra, t_register *rb, int argc, char **argv);
+int			setup(t_register *ra, t_register *rb, int argc, char **argv);
 
 /* ACTIONS */
 void		perform_action(t_register *a, t_register *b, int action);
@@ -96,7 +97,7 @@ int64_t		ft_atoi(const char *nptr);
 /* LIST_UTILS */
 t_node		*new_node(int n, int rank);
 void		free_all(t_register *r);
-void		add_node(t_register *r, t_node *new);
+int			add_node(t_register *r, t_node *new);
 int			is_sorted(t_register *r);
 
 #endif
