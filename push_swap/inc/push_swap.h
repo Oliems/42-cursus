@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:07:22 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/28 13:55:22 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:18:07 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h> /* DEBUG */
 
 typedef struct s_node		t_node;
 typedef struct s_register	t_register;

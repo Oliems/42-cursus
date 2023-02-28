@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:07:31 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/28 13:45:56 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:14:57 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	solve(t_register *ra, t_register *rb)
 {
-	// if is_sorted return ;
+	if (is_sorted(ra))
+		return ;
 	if (ra->size <= 5)
 		return (solve_small(ra, rb));
 	else
@@ -26,7 +27,7 @@ int	main(int argc, char **argv)
 	t_register	*ra;
 	t_register	*rb;
 
-	if (argc <= 2)
+	if (argc == 1)
 		return (EXIT_SUCCESS);
 	ra = malloc(sizeof(t_register));
 	rb = malloc(sizeof(t_register));

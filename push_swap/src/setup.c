@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:51:03 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/23 18:06:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:07:41 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	get_index(int *arr, int n, int size)
 	return (i + 1);
 }
 
-void	setup(t_register *ra, t_register *rb, int argc, char **argv)
+int	setup(t_register *ra, t_register *rb, int argc, char **argv)
 {
 	int	i;
 	int	n;
@@ -54,14 +54,15 @@ void	setup(t_register *ra, t_register *rb, int argc, char **argv)
 	ra->head = NULL;
 	ra->tail = NULL;
 	arr = setup_index(argc, argv);
-	while (i <= ra->size)
+	while (arr && (i <= ra->size))
 	{
 		n = ft_atoi(argv[i++]);
-		add_node(ra, new_node(n, get_index(arr, n, ra->size)));
+		if (add_node(ra, new_node(n, get_index(arr, n, ra->size))) < 0)
+			return (free(arr), arr = NULL, -1);
 	}
 	rb->size = 0;
 	rb->topi = ra->size;
 	rb->head = NULL;
 	rb->tail = NULL;
-	free(arr);
+	return (free(arr), arr = NULL, 0);
 }
