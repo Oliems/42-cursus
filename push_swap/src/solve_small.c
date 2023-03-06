@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:13:35 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 16:10:11 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:18:16 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ void	solve_small(t_register *ra, t_register *rb)
 {
 	if (is_sorted(ra))
 		return ;
+	if (ra->size == 2)
+	{
+		if (ra->head->index > ra->tail->index)
+			return (perform_action(ra, rb, SA));
+	}
 	if (ra->size == 3)
 		return (solve_three(ra, rb));
 	if (ra->size == 4)
