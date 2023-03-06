@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/02/28 14:19:07 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/03/06 17:20:52 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CC			:=	gcc
 RM			:=	rm
 
 CFLAGS		:=	-Wall -Wextra -Werror
-LDFLAGS		:=	-Wall
+LDFLAGS		:=	$(CFLAGS)
 RMFLAGS		:=	-f
 
 SRCDIR		:=	src
