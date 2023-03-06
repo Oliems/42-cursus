@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:51:03 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/02/28 14:07:41 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:19:24 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	setup(t_register *ra, t_register *rb, int argc, char **argv)
 	ra->head = NULL;
 	ra->tail = NULL;
 	arr = setup_index(argc, argv);
+	if (!arr)
+		return (-1);
 	while (arr && (i <= ra->size))
 	{
 		n = ft_atoi(argv[i++]);
