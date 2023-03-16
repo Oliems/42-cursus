@@ -10,4 +10,6 @@ at 42.
 | ft_printf     | 100    |
 | b2br          | 110    |
 | get_next_line | 100    |
+| minitalk		| 120    |
 | push_swap     |        |
+| fdf           |        |
