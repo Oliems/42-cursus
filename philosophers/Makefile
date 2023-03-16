@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/03/16 10:57:17 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/03/16 10:46:35 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 # We can also use make -d.
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
-NAME		:=	philo
+NAME		:=	template
 SRCS		:=	main.c
 
 CC			:=	cc
