@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:16 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/16 03:44:22 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/17 11:19:47 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char *argv[])
 	t_fdf	*env;
 
 	if (argc != 2)
-		return (write(1, "Usage: ./fdf <map.fdf>\n", 24), EXIT_SUCCESS);
+		return (f_perror("Usage: ./fdf <map.fdf>\n"), EXIT_SUCCESS);
 	map = f_file_to_array(argv[1]);
 	if (!map)
 		return (print_error(ERR_FILE), EXIT_SUCCESS);
