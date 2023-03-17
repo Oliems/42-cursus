@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:19 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/15 11:43:04 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/17 11:18:49 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ enum e_errors
 /* MAIN.C */
 
 /* DRAW.C */
-int		map_draw(t_fdf *env);
+int			map_draw(t_fdf *env);
 
 /* FDF_INIT.C */
 t_fdf		*fdf_init(char *map);
