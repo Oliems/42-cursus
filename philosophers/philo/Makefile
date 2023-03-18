@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/03/16 10:46:35 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/03/18 09:15:46 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,24 +14,27 @@
 # We can also use make -d.
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
-NAME		:=	template
-SRCS		:=	main.c
+NAME		:=	philo
+SRCS		:=	main.c \
+				philo_helpers.c \
+				philo_init.c \
+				philo_thread.c
 
 CC			:=	cc
 RM			:=	rm
-
-CFLAGS		:=	-Wall -Wextra -Werror
-LDFLAGS		:=	$(CFLAGS)
-RMFLAGS		:=	-f
 
 SRCDIR		:=	src
 OBJDIR		:=	obj
 INCDIR		:=	inc
 
-# Edit the $(HEADERS) variable as necessary.
-HEADERS		:=	$(INCDIR)/header.h
+INCFLAGS	:= -I$(INCDIR)
+LIBFLAGS	:= -lpthread
+CFLAGS		:=	-Wall -Wextra -g3 # -Werror
+LDFLAGS		:=	$(CFLAGS)
+RMFLAGS		:=	-f
 
-LINK.o		:=	$(CC) $(LDFLAGS)
+# Edit the $(HEADERS) variable as necessary.
+HEADERS		:=	$(INCDIR)/philo.h
 COMPILE.c	:=	$(CC) -I$(INCDIR) $(CFLAGS) -c
 REMOVE		:=	$(RM) $(RMFLAGS)
 
@@ -47,7 +50,7 @@ all: $(NAME)
 $(OBJECTS): $(HEADERS) Makefile
 
 $(NAME): $(OBJECTS)
-	$(LINK.o) -o $(NAME) $^
+	$(CC) $(OBJECTS) $(INCFLAGS) $(LIBFLAGS) -o $(NAME)
 
 clean:
 	$(REMOVE) $(OBJECTS)

@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   philo_thread.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/01/26 18:04:40 by mbarberi         ###   ########.fr       */
+/*   Created: 2023/03/18 09:14:03 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/03/18 09:15:08 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "philo.h"
 
-#endif
+void *philo_thread_func(void *arg)
+{
+	printf("Hello from thread %ld\n", (intptr_t)arg);
+	return (NULL);
+}
