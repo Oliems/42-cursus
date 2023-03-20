@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 07:26:32 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/18 09:15:08 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:06:22 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static pthread_mutex_t	*philo_init_mutexes(uint8_t size)
 	return (p);
 }
 
-static pthread_t	*philo_init_threads(uint8_t size)
+static pthread_t	*philo_init_threads(t_env *env, uint8_t size)
 {
 	int			i;
 	int			r;
@@ -62,7 +62,7 @@ static pthread_t	*philo_init_threads(uint8_t size)
 		return (NULL);
 	while (i < size)
 	{
-		r = pthread_create(&p[i], NULL, philo_thread_func, (void *)(intptr_t)i);
+		r = pthread_create(&p[i], NULL, philo_thread_func, env);
 		if (r != 0)
 		{
 			while (1)
@@ -102,7 +102,9 @@ t_env *philo_init(int argc, char *argv[])
 	p->mtx = philo_init_mutexes(p->np);
 	if (!(p->mtx))
 		return (free(p), NULL);
-	p->th = philo_init_threads(p->np);
+	pthread_mutex_init(&(p->common_mtx), NULL);
+	// FIXME: Add error checking
+	p->th = philo_init_threads(p, p->np);
 	if (!(p->th))
 		return (philo_exit(p), NULL);
 	return (p);
