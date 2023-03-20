@@ -67,7 +67,7 @@ static int	ft_hasduplicates(int argc, char **argv)
 	return (0);
 }
 
-/* Check if the arguments provided are valid. Return 1 if an error occured */
+/* Check if the arguments provided are valid. Return 1 if an error occurred */
 int	check_arguments(int argc, char **argv)
 {
 	if (ft_hasduplicates(argc, argv))
