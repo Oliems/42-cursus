@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:14:03 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/20 13:23:53 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:51:10 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ static int get_philo_id(t_env *env)
 	return (++id);
 }
 
+static time_t	time_now(void)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
+}
+
+/*
+ * Let n be the number of philosophers. If n is even then  n / 2
+ * philosophers can eat at the same time. If n is odd then (n - 1) / 2
+ * philosophers can eat at the same time. If n is even, even-numbered eat
+ * first then odd-numbered. If n is odd, 1 eat first then even then odd.
+*/
 void *philo_thread_func(void *arg)
 {
 	int			id;

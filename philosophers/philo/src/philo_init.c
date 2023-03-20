@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 07:26:32 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/20 13:06:22 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:51:17 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,14 @@ static void philo_init_args(t_env *env, int argc, char *argv[])
 		env->n = 0;
 }
 
+static time_t philo_init_time(void)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
+}
+
 t_env *philo_init(int argc, char *argv[])
 {
 	t_env *p;
@@ -99,11 +107,12 @@ t_env *philo_init(int argc, char *argv[])
 	if (!p)
 		return (NULL);
 	philo_init_args(p, argc, argv);
+	p->start = philo_init_time();
 	p->mtx = philo_init_mutexes(p->np);
 	if (!(p->mtx))
 		return (free(p), NULL);
-	pthread_mutex_init(&(p->common_mtx), NULL);
-	// FIXME: Add error checking
+	if ((pthread_mutex_init(&(p->common_mtx), NULL)) != 0)
+		return (philo_exit(p), NULL);
 	p->th = philo_init_threads(p, p->np);
 	if (!(p->th))
 		return (philo_exit(p), NULL);

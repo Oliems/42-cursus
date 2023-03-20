@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/20 13:02:25 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:51:03 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
 # define USG_MSG "Usage: ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]\n"
 
@@ -28,6 +30,7 @@ typedef struct
 	time_t				td;
 	time_t				te;
 	time_t				ts;
+	time_t				start;
 	pthread_t			*th;
 	pthread_mutex_t		common_mtx;
 	pthread_mutex_t		*mtx;
