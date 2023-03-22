@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 11:43:16 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:08:38 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct
 	time_t				te;
 	time_t				ts;
 	time_t				start;
+	bool				exit;
 	pthread_t			*th;
 	pthread_mutex_t		common_mtx;
 	pthread_mutex_t		*mtx;

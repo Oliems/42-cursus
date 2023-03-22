@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 07:26:32 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 11:43:43 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:09:00 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_env *philo_init(int argc, char *argv[])
 	philo_init_args(p, argc, argv);
 	p->start = time_now();
 	p->mtx = philo_init_mutexes(p->np);
+	p->exit = false;
 	if (!(p->mtx))
 		return (free(p), NULL);
 	if ((pthread_mutex_init(&(p->common_mtx), NULL)) != 0)

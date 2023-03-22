@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:14:03 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 11:46:43 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:04:37 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ static int get_philo_id(void)
 	return (++id);
 }
 
-
-
 static void sync_time(t_env *env)
 {
-	while (time_now() < env->start + 20)
+	while (time_now() <= env->start + 25)
+	{
+		usleep(1);
 		continue;
+	}
 }
 
 /*
@@ -41,7 +42,8 @@ void *philo_thread_func(void *arg)
 	pthread_mutex_lock(&(env->common_mtx));
 	id = get_philo_id();
 	pthread_mutex_unlock(&(env->common_mtx));
-	sync_time(env);
-	printf("Thread %d started %ld ms ago\n", id, time_now() - env->start);
+	sync_time(env); // FIXME: Does not work well for large number of threads
+	time_t test = time_now() - env->start - 26;
+	printf("Thread %d started %ld ms ago\n", id, test);
 	return (NULL);
 }
