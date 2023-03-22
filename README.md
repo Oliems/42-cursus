@@ -11,5 +11,5 @@ at 42.
 | b2br          | 110    |
 | get_next_line | 100    |
 | minitalk		| 120    |
-| push_swap     |        |
+| push_swap     | 100    |
 | fdf           |        |
