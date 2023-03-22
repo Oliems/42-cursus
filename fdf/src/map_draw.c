@@ -6,11 +6,27 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:04:05 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/15 11:42:27 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:35:07 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/**
+ * @brief Write a pixel on an mlx image.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @param x The x coordinate of the pixel.
+ * @param y The y coordinate of the pixel.
+ * @param color The color coordinate of the pixel.
+ */
+static void	mlx_pixel_put_img(t_fdf *env, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = env->addr + (y * env->llen + x * (env->bpp / 8));
+	*(unsigned int *)dst = color;
+}
 
 /**
  * @brief Linearly interpolate two colors.
@@ -49,7 +65,7 @@ static uint32_t	lerp(uint32_t c1, uint32_t c2, double t)
  * @brief Draw a line between two points using Bresenham's algorithm.
  * @param a Starting point.
  * @param b Destination point.
- * @param env Structure containing informations about the program's
+ * @param env Structure containing information about the program's
  * environment.
  */
 static void	draw_line(t_point a, t_point b, t_fdf *env)
@@ -69,7 +85,7 @@ static void	draw_line(t_point a, t_point b, t_fdf *env)
 	step_rgb = 1 / max;
 	while ((int)(a.u - b.u) || (int)(a.v - b.v))
 	{
-		mlx_pixel_put(env->mlx, env->win, a.u, a.v, lerp(a.color, b.color, t));
+		mlx_pixel_put_img(env, a.u, a.v, lerp(a.color, b.color, t));
 		a.u += step_x;
 		a.v += step_y;
 		t += step_rgb;
@@ -81,7 +97,7 @@ static void	draw_line(t_point a, t_point b, t_fdf *env)
 /**
  * @brief Draw the map by drawing a line between each point and the one to
  * its right and the one below.
- * @param env Structure containing informations about the program's
+ * @param env Structure containing information about the program's
  * environment.
  */
 int	map_draw(t_fdf *env)
@@ -103,5 +119,6 @@ int	map_draw(t_fdf *env)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (0);
 }

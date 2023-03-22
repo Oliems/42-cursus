@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 07:31:37 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/15 08:00:34 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:30:47 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * @brief Initialize all members to a sane default value.
- * @param env Structure containing informations about the program's
+ * @param env Structure containing information about the program's
  * environment.
  * @param map The string representing the map.
  */
@@ -41,7 +41,7 @@ static void	fdf_init_members(t_fdf *env, char *map)
  * @brief Find the offset so that the top left corner lies on the top edge
  * of the screen and the bottom left corner lies on the left edge of the
  * screen.
- * @param env Structure containing informations about the program's
+ * @param env Structure containing information about the program's
  * environment.
  */
 static void	fdf_init_offset(t_fdf *env)
@@ -74,7 +74,7 @@ static void	fdf_init_offset(t_fdf *env)
  * @brief Find the scale factor so that the top and bottom rigth corners of
  * the map lie as close as possible to the right and bottom edges of the
  * screen, respectively.
- * @param env Structure containing informations about the program's
+ * @param env Structure containing information about the program's
  * environment.
  */
 static void	fdf_init_scale(t_fdf *env)
@@ -110,7 +110,7 @@ static void	fdf_init_scale(t_fdf *env)
  * @brief Multiply the offset the isometric coordinates of each point and
  * multiply by the scale so that the we do not have to do it in the
  * map_draw() function.
- * @param env Structure containing informations about the program's
+ * @param env Structure containing information about the program's
  * environment.
  */
 static void	fdf_init_view(t_fdf *env)
@@ -136,7 +136,7 @@ static void	fdf_init_view(t_fdf *env)
  * @brief Initialize the mlx-related members and set the scale / offset for
  * each point in the matrix.
  * @param map The string representing the map.
- * @return The t_fdf structure containing all the informations we need to
+ * @return The t_fdf structure containing all the information we need to
  * draw the map and manage the window. If an error occured, everything
  * that was allocated up to that point is free'd and NULL is returned.
  */

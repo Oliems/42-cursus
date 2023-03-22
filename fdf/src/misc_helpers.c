@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 10:54:29 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/15 11:52:04 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:30:47 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ on each line or the map does not end with a newline.\n");
 /**
  * @brief If a pointer has been set, free it. This functin is used by
  * fdf_init() in case an error occured.
- * @param env Structure containing informations about the program's
+ * @param env Structure containing information about the program's
  * environment.
  */
 void	fdf_free_if(t_fdf *env)
