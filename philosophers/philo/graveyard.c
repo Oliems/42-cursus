@@ -52,4 +52,4 @@ typedef struct
 	int				phid;
 	pthread_t		th;
 	pthread_mutex_t	mtx;
-} t_philo;
+} t_thread;

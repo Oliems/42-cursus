@@ -6,13 +6,14 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:14:03 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 12:04:37 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:26:32 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int get_philo_id(void)
+
+static int get_thread_id(void)
 {
 	static int id = 0;
 	return (++id);
@@ -35,15 +36,14 @@ static void sync_time(t_env *env)
 */
 void *philo_thread_func(void *arg)
 {
-	int			id;
-	t_env		*env;
+	t_thread		p;
 
-	env = (t_env *)arg;
-	pthread_mutex_lock(&(env->common_mtx));
-	id = get_philo_id();
-	pthread_mutex_unlock(&(env->common_mtx));
-	sync_time(env); // FIXME: Does not work well for large number of threads
-	time_t test = time_now() - env->start - 26;
-	printf("Thread %d started %ld ms ago\n", id, test);
+	p.env = (t_env *)arg;
+	pthread_mutex_lock(&(p.env->common_mtx));
+	p.id = get_thread_id();
+	pthread_mutex_unlock(&(p.env->common_mtx));
+	sync_time(p.env); // FIXME: Does not work well for large number of threads
+	p.start_time = time_now();
+	printf("Thread %d started %ld ms ago\n", p.id, p.start_time - p.env->start);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 12:08:38 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:26:32 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ typedef struct
 	pthread_mutex_t		common_mtx;
 	pthread_mutex_t		*mtx;
 }	t_env;
+
+typedef struct
+{
+	int		id;
+	t_env	*env;
+	time_t	start_time;
+} t_thread;
 
 /* PHILO_INIT.C */
 t_env		*philo_init(int argc, char *argv[]);
