@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/03/15 08:14:08 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/03/23 15:00:45 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LFTDIR		:=	libft
 
 INCFLAGS	:= -I$(INCDIR) -I$(SYSINC) -I$(MLXDIR) -I$(LFTDIR)/inc
 LIBFLAGS	:= -L$(MLXDIR) -L$(LFTDIR) -L$(SYSLIB) -lmlx_Linux -lft -lXext -lX11 -lm
-CFLAGS		:=	-Wall -Wextra -Werror -O2 $(INCFLAGS)
+CFLAGS		:=	-Wall -Wextra -Werror -O3 -Ofast -march=native -ffast-math $(INCFLAGS)
 LDFLAGS		:=	$(CFLAGS)
 RMFLAGS		:=	-f
 
