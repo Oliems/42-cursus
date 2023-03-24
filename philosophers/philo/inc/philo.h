@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 12:26:32 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:21:09 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,23 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-# define USG_MSG "Usage: ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]\n"
+# define MSG_USG "Usage: ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]\n"
+# define MSG_EAT "is eating"
+# define MSG_SLEEP "is sleeping"
+# define MSG_THINK "is thinking"
+# define MSG_FORK "has taken a fork"
+# define MSG_DIE "has died"
 
 typedef struct
 {
 	uint8_t				np;
-	uint16_t			n;
+	int					n;
 	time_t				td;
 	time_t				te;
 	time_t				ts;
 	time_t				start;
 	bool				exit;
+	bool				go;
 	pthread_t			*th;
 	pthread_mutex_t		common_mtx;
 	pthread_mutex_t		*mtx;
@@ -39,10 +45,19 @@ typedef struct
 
 typedef struct
 {
-	int		id;
-	t_env	*env;
-	time_t	start_time;
+	uint8_t		id;
+	int			nmeal;
+	t_env		*env;
+	time_t		start_time;
+	time_t		last_meal;
+	bool		full;
 } t_thread;
+
+enum
+{
+	EVEN,
+	ODD
+};
 
 /* PHILO_INIT.C */
 t_env		*philo_init(int argc, char *argv[]);

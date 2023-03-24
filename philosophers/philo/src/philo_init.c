@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 07:26:32 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 12:18:17 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:35:51 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void philo_init_args(t_env *env, int argc, char *argv[])
 	if (argc == 6)
 		env->n = (uint16_t)f_atoi(argv[5]);
 	else
-		env->n = 0;
+		env->n = -1;
 }
 
 t_env *philo_init(int argc, char *argv[])
@@ -99,7 +99,9 @@ t_env *philo_init(int argc, char *argv[])
 	if (!p)
 		return (NULL);
 	philo_init_args(p, argc, argv);
-	p->start = time_now();
+	if (!(p->np) || !(p->n)) // if there is not philo or if the eat limit is 0 stop here.
+		return (free(p), NULL);
+	p->go = false;
 	p->mtx = philo_init_mutexes(p->np);
 	p->exit = false;
 	if (!(p->mtx))
@@ -109,5 +111,8 @@ t_env *philo_init(int argc, char *argv[])
 	p->th = philo_init_threads(p, p->np);
 	if (!(p->th))
 		return (philo_exit(p), NULL);
+	usleep(200);
+	p->start = time_now();
+	p->go = true;
 	return (p);
 }

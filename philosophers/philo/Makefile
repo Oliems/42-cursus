@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/03/18 09:15:46 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/03/23 15:20:50 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ INCDIR		:=	inc
 
 INCFLAGS	:= -I$(INCDIR)
 LIBFLAGS	:= -lpthread
-CFLAGS		:=	-Wall -Wextra -g3 # -Werror
+DEBUGFLAGS	:= -g3 -fsanitize=address -fno-omit-frame-pointer -Wno-format-security
+CFLAGS		:=	-Wall -Wextra # -Werror
 LDFLAGS		:=	$(CFLAGS)
 RMFLAGS		:=	-f
 
