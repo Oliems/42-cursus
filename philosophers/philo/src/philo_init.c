@@ -6,113 +6,162 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 07:26:32 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/23 15:35:51 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:47:08 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void philo_exit(t_env *env)
+static void deallocator(t_env *env)
 {
-	int i;
-
-	i = 0;
 	if (!env)
 		return;
-	if (env->th)
-		while (i < env->np)
-			pthread_join(env->th[i++], NULL);
-	i = 0;
 	if (env->mtx)
-		while (i < env->np)
-			pthread_mutex_destroy(&(env->mtx[i++]));
-	free(env->th);
-	free(env->mtx);
-	env->th = NULL;
+		free(env->mtx);
+	if (env->thd)
+		free(env->thd);
+	if (env->last_meal)
+		free(env->last_meal);
+	if (env->full)
+		free(env->full);
+	if (env->arg)
+		free(env->arg);
 	env->mtx = NULL;
+	env->thd = NULL;
+	env->last_meal = NULL;
+	env->full = NULL;
+	env->arg = NULL;
 	free(env);
 	env = NULL;
 }
 
-/* WARNING: if mutex are dynamicaly allocated, destroy all AND free array
-AND return NULL if an error occured */
-static pthread_mutex_t	*philo_init_mutexes(uint8_t size)
+static t_env *allocator(size_t size)
 {
-	int					i;
-	pthread_mutex_t		*p;
+	t_env *p;
 
-	i = 0;
-	p = malloc(size * sizeof(pthread_mutex_t));
+	if (!size)
+		return (NULL);
+	p = malloc(sizeof(t_env));
 	if (!p)
 		return (NULL);
-	while (i < size)
-		p[i++] = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	p->mtx = malloc(size * sizeof(pthread_mutex_t));
+	p->thd = malloc(size * sizeof(pthread_t));
+	p->last_meal = malloc(size * sizeof(time_t));
+	p->full = malloc(size * sizeof(bool));
+	p->arg = malloc(5 * sizeof(int));
+	if (!(p->mtx) || !(p->thd) || !(p->last_meal) || !(p->full) || !(p->arg))
+		return (deallocator(p), NULL);
 	return (p);
 }
 
-static pthread_t	*philo_init_threads(t_env *env, uint8_t size)
+static void mutexes_destroy(t_env *env, uint8_t size)
 {
-	int			i;
-	int			r;
-	pthread_t	*p;
+	int i;
 
 	i = 0;
-	p = malloc(size * sizeof(pthread_t));
-	if (!p)
-		return (NULL);
+	if (!env->mtx)
+		return;
+	while (i < size)
+		pthread_mutex_destroy(&env->mtx[i++]);
+	free(env->mtx);
+	env->mtx = NULL;
+}
+
+// FIXME: Might not work if threads are busy
+static void threads_destroy(t_env *env, uint8_t size)
+{
+	int i;
+
+	i = 0;
+	if (!env->thd)
+		return;
+	while (i < size)
+		pthread_join(env->thd[i++], NULL);
+	free(env->thd);
+	env->thd = NULL;
+}
+
+void philo_exit(t_env *env)
+{
+	if (!env)
+		return;
+	threads_destroy(env, env->arg[N]);
+	mutexes_destroy(env, env->arg[N]);
+	pthread_mutex_destroy(&env->common_mtx);
+	deallocator(env);
+}
+
+static int mutexes_init(t_env *env, uint8_t size)
+{
+	int i;
+
+	if (!env->mtx)
+		return (1);
+	i = 0;
 	while (i < size)
 	{
-		r = pthread_create(&p[i], NULL, philo_thread_func, env);
-		if (r != 0)
-		{
-			while (1)
-			{
-				pthread_join(p[i], NULL);
-				if (!i)
-					break ;
-				i--;
-			}
-			return (free(p), NULL);
-		}
+		if (pthread_mutex_init(&env->mtx[i], NULL) != 0)
+			return (mutexes_destroy(env, i), 1);
 		i++;
 	}
-	return (p);
+	return (0);
+}
+
+static int threads_init(t_env *env, uint8_t size)
+{
+	int i;
+
+	if (!env->thd)
+		return (1);
+	i = 0;
+	while (i < size)
+	{
+		if (pthread_create(&env->thd[i], NULL, thread_begin, env) != 0)
+			return (threads_destroy(env, i), 1);
+		i++;
+	}
+	return (0);
 }
 
 static void philo_init_args(t_env *env, int argc, char *argv[])
 {
-	env->np = (uint8_t)f_atoi(argv[1]);
-	env->td = f_atoi(argv[2]);
-	env->te = f_atoi(argv[3]);
-	env->ts = f_atoi(argv[4]);
+	env->arg[N] = f_atoi(argv[1]);
+	env->arg[T2D] = f_atoi(argv[2]);
+	env->arg[T2E] = f_atoi(argv[3]);
+	env->arg[T2S] = f_atoi(argv[4]);
 	if (argc == 6)
-		env->n = (uint16_t)f_atoi(argv[5]);
+		env->arg[LIM] = f_atoi(argv[5]);
 	else
-		env->n = -1;
+		env->arg[LIM] = -1;
+}
+
+// TODO: Initialize p->full and p->last_meal
+static void philo_init_meal(t_env *env)
+{
+	int i;
+
+	i = 0;
+	while (i < env->arg[N])
+		env->last_meal[i++] = env->start;
 }
 
 t_env *philo_init(int argc, char *argv[])
 {
 	t_env *p;
 
-	p = malloc(sizeof(t_env));
+	p = allocator(f_atoi(argv[1]));
 	if (!p)
 		return (NULL);
 	philo_init_args(p, argc, argv);
-	if (!(p->np) || !(p->n)) // if there is not philo or if the eat limit is 0 stop here.
-		return (free(p), NULL);
-	p->go = false;
-	p->mtx = philo_init_mutexes(p->np);
-	p->exit = false;
-	if (!(p->mtx))
-		return (free(p), NULL);
+	if (p->arg[N] <= 0 || p->arg[T2D] < 0 || p->arg[T2E] < 0 || p->arg[T2S] < 0 || p->arg[LIM] == 0)
+		return (deallocator(p), printf("Please enter a non-negative value."), NULL);
+	p->exit = true;
 	if ((pthread_mutex_init(&(p->common_mtx), NULL)) != 0)
-		return (philo_exit(p), NULL);
-	p->th = philo_init_threads(p, p->np);
-	if (!(p->th))
-		return (philo_exit(p), NULL);
-	usleep(200);
+		return (deallocator(p), NULL);
+	if (mutexes_init(p, p->arg[N]) || threads_init(p, p->arg[N]))
+		return (deallocator(p), NULL);
 	p->start = time_now();
-	p->go = true;
+	philo_init_meal(p);
+	p->exit = false;
 	return (p);
 }

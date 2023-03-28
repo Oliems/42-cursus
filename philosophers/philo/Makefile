@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/03/23 15:20:50 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/03/28 17:15:36 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ NAME		:=	philo
 SRCS		:=	main.c \
 				philo_helpers.c \
 				philo_init.c \
-				philo_thread.c
+				philo_thread.c \
+				philo_thread_helpers.c
 
 CC			:=	cc
 RM			:=	rm
@@ -30,7 +31,7 @@ INCDIR		:=	inc
 INCFLAGS	:= -I$(INCDIR)
 LIBFLAGS	:= -lpthread
 DEBUGFLAGS	:= -g3 -fsanitize=address -fno-omit-frame-pointer -Wno-format-security
-CFLAGS		:=	-Wall -Wextra # -Werror
+CFLAGS		:=	-Wall -Wextra -g3 # -Werror
 LDFLAGS		:=	$(CFLAGS)
 RMFLAGS		:=	-f
 

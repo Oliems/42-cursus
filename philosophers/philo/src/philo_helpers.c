@@ -6,11 +6,11 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 04:17:16 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/22 11:42:48 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:34:12 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 static int	f_isdigit(int c)
 {
@@ -39,29 +39,4 @@ time_t	f_atoi(const char *s)
 	while (f_isdigit(*s))
 		x = x * 10 + *s++ - '0';
 	return (x * sign);
-}
-
-static size_t	f_strlen(const char *s)
-{
-	const char	*p;
-
-	p = s;
-	while (*p)
-		p++;
-	return (p - s);
-}
-
-time_t	time_now(void)
-{
-	struct timeval	now;
-
-	gettimeofday(&now, NULL);
-	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
-}
-
-void	f_perror(const char *s)
-{
-	if (!s || !*s)
-		return ;
-	write(STDERR_FILENO, s, f_strlen(s));
 }

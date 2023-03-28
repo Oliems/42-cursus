@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/23 16:21:09 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:30:57 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,42 +21,44 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-# define MSG_USG "Usage: ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]\n"
+# define MSG_USG "Usage: ./philo <number_of_philosophers> <time_to_die> \
+<time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]\n"
 # define MSG_EAT "is eating"
 # define MSG_SLEEP "is sleeping"
 # define MSG_THINK "is thinking"
 # define MSG_FORK "has taken a fork"
 # define MSG_DIE "has died"
 
-typedef struct
-{
-	uint8_t				np;
-	int					n;
-	time_t				td;
-	time_t				te;
-	time_t				ts;
-	time_t				start;
-	bool				exit;
-	bool				go;
-	pthread_t			*th;
-	pthread_mutex_t		common_mtx;
-	pthread_mutex_t		*mtx;
-}	t_env;
-
-typedef struct
-{
-	uint8_t		id;
-	int			nmeal;
-	t_env		*env;
-	time_t		start_time;
-	time_t		last_meal;
-	bool		full;
-} t_thread;
+typedef struct s_env t_env;
+typedef struct s_thread t_thread;
 
 enum
 {
-	EVEN,
-	ODD
+	N,
+	T2D,
+	T2E,
+	T2S,
+	LIM
+};
+
+struct s_thread
+{
+	uint8_t		id;
+	t_env		*env;
+	int			nmeal;
+};
+
+struct s_env
+{
+	int					*arg;
+	time_t				*last_meal;
+	bool				*full;
+	pthread_mutex_t		*mtx;
+	pthread_t			*thd;
+	time_t				start;
+	bool				exit;
+	pthread_mutex_t		common_mtx;
+
 };
 
 /* PHILO_INIT.C */
@@ -64,11 +66,15 @@ t_env		*philo_init(int argc, char *argv[]);
 void		philo_exit(t_env *env);
 
 /* PHILO_THREAD.C */
-void		*philo_thread_func(void *arg);
+void		*thread_begin(void *arg);
+void		thread_monitor(t_env *env);
 
 /* PHILO_HELPERS.C */
 time_t		f_atoi(const char *s);
-void		f_perror(const char *s);
+
+/* PHILO_THREAD_HELPERS.C */
 time_t		time_now(void);
+void		my_usleep(time_t wait);
+void		print_action(t_thread *t, char *act);
 
 #endif
