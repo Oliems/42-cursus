@@ -58,10 +58,8 @@ static void	philo_init_args(t_env *env, int argc, char *argv[])
 
 t_env	*philo_init(int argc, char *argv[])
 {
-	int		i;
 	t_env	*p;
 
-	i = 0;
 	p = allocator(f_atoi(argv[1]));
 	if (!p)
 		return (NULL);

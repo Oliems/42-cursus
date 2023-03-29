@@ -43,23 +43,25 @@ static int	thread_monitor_death(t_env *env)
 {
 	int			i;
 	time_t		now;
+	time_t		delta;
 
 	i = 0;
+	pthread_mutex_lock(&(env->common_mtx));
 	while (i < env->arg[N])
 	{
-		pthread_mutex_lock(&(env->common_mtx));
-		now = time_now() - env->last_meal[i];
-		pthread_mutex_unlock(&(env->common_mtx));
-		if (now >= env->arg[T2D])
+		now = time_now();
+		delta = now - env->last_meal[i];
+		if (delta >= env->arg[T2D])
 		{
-			pthread_mutex_lock(&(env->common_mtx));
-			printf("%ld %d %s\n", time_now() - env->start, i + 1, MSG_DIE);
+			printf("%ld %d %s\n", now - env->start, i + 1, MSG_DIE);
 			env->exit = true;
 			pthread_mutex_unlock(&(env->common_mtx));
 			return (1);
 		}
 		i++;
 	}
+	pthread_mutex_unlock(&(env->common_mtx));
+	usleep(10);
 	return (0);
 }
 
@@ -73,3 +75,31 @@ void	thread_monitor(t_env *env)
 			break ;
 	}
 }
+
+
+/* static int	thread_monitor_death(t_env *env)
+{
+	int			i;
+	time_t		now;
+	time_t		delta;
+
+	i = 0;
+	while (i < env->arg[N])
+	{
+		now = time_now();
+		pthread_mutex_lock(&(env->common_mtx));
+		delta = now - env->last_meal[i];
+		pthread_mutex_unlock(&(env->common_mtx));
+		if (delta >= env->arg[T2D])
+		{
+			pthread_mutex_lock(&(env->common_mtx));
+			printf("%ld %d %s\n", now - env->start, i + 1, MSG_DIE);
+			env->exit = true;
+			pthread_mutex_unlock(&(env->common_mtx));
+			return (1);
+		}
+		i++;
+	}
+	usleep(10);
+	return (0);
+} */

@@ -19,10 +19,10 @@ static void	thread_eat(t_thread *t, int fork1, int fork2)
 	pthread_mutex_lock(&(t->env->mtx[fork2]));
 	print_action(t, MSG_FORK);
 	print_action(t, MSG_EAT);
-	my_usleep(t->env->arg[T2E]);
 	pthread_mutex_lock(&(t->env->common_mtx));
 	t->env->last_meal[t->id] = time_now();
 	pthread_mutex_unlock(&(t->env->common_mtx));
+	my_usleep(t->env->arg[T2E]);
 	pthread_mutex_unlock(&(t->env->mtx[fork1]));
 	pthread_mutex_unlock(&(t->env->mtx[fork2]));
 	t->nmeal++;
@@ -43,6 +43,8 @@ static void	thread_wait(t_thread *t)
 
 static void	thread_routine(t_thread *t)
 {
+	if (t->env->arg[N] == 1) // FIXME: not very clean
+		return ;
 	while (!t->env->exit)
 	{
 		if (t->id % 2 == 1)
@@ -64,9 +66,9 @@ void	*thread_init(void *arg)
 	t.nmeal = 0;
 	pthread_mutex_lock(&(t.env->common_mtx));
 	t.id = id++;
-	pthread_mutex_unlock(&(t.env->common_mtx));
 	t.env->full[t.id] = false;
 	t.env->last_meal[t.id] = t.env->start;
+	pthread_mutex_unlock(&(t.env->common_mtx));
 	while (t.env->exit)
 		;
 	print_action(&t, MSG_THINK);

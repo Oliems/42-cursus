@@ -12,6 +12,11 @@
 
 #include "philo.h"
 
+// TODO: Check leaks and crashes using NULL for malloc, thread_init and mutex_init
+// TODO: Make death message appear faster
+// TODO: Add mutex to prevent philo dying and eating at the same time
+// TODO: Handle n == 1 properly
+
 int	main(int argc, char *argv[])
 {
 	t_env	*env;
@@ -21,7 +26,6 @@ int	main(int argc, char *argv[])
 	env = philo_init(argc, argv);
 	if (!env)
 		return (EXIT_FAILURE);
-	sleep(1);
 	thread_monitor(env);
 	return (philo_exit(env), EXIT_SUCCESS);
 }
