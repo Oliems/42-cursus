@@ -6,16 +6,16 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 12:43:38 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/29 12:44:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:07:22 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void deallocator(t_env *env)
+void	deallocator(t_env *env)
 {
 	if (!env)
-		return;
+		return ;
 	if (env->mtx)
 		free(env->mtx);
 	if (env->thd)
@@ -35,9 +35,9 @@ void deallocator(t_env *env)
 	env = NULL;
 }
 
-t_env *allocator(size_t size)
+t_env	*allocator(size_t size)
 {
-	t_env *p;
+	t_env	*p;
 
 	if (!size)
 		return (NULL);
@@ -54,13 +54,13 @@ t_env *allocator(size_t size)
 	return (p);
 }
 
-void mutexes_destroy(t_env *env, uint8_t size)
+void	mutexes_destroy(t_env *env, uint8_t size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!env->mtx)
-		return;
+		return ;
 	while (i < size)
 		pthread_mutex_destroy(&env->mtx[i++]);
 	free(env->mtx);
@@ -68,23 +68,23 @@ void mutexes_destroy(t_env *env, uint8_t size)
 }
 
 // FIXME: Might not work if threads are busy
-void threads_destroy(t_env *env, uint8_t size)
+void	threads_destroy(t_env *env, uint8_t size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!env->thd)
-		return;
+		return ;
 	while (i < size)
 		pthread_join(env->thd[i++], NULL);
 	free(env->thd);
 	env->thd = NULL;
 }
 
-void philo_exit(t_env *env)
+void	philo_exit(t_env *env)
 {
 	if (!env)
-		return;
+		return ;
 	threads_destroy(env, env->arg[N]);
 	mutexes_destroy(env, env->arg[N]);
 	pthread_mutex_destroy(&env->common_mtx);
