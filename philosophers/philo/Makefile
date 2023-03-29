@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/03/28 17:15:36 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/03/29 12:45:49 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,13 @@
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	philo
-SRCS		:=	main.c \
-				philo_helpers.c \
-				philo_init.c \
-				philo_thread.c \
-				philo_thread_helpers.c
+SRCS		:=	helpers.c \
+				init.c \
+				main.c \
+				thread.c \
+				thread_helpers.c \
+				thread_monitor.c \
+				memory.c
 
 CC			:=	cc
 RM			:=	rm

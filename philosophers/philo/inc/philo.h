@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:06:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/03/28 16:30:57 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:45:00 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,30 @@ struct s_env
 
 };
 
-/* PHILO_INIT.C */
+/* INIT.C */
 t_env		*philo_init(int argc, char *argv[]);
 void		philo_exit(t_env *env);
 
-/* PHILO_THREAD.C */
-void		*thread_begin(void *arg);
-void		thread_monitor(t_env *env);
-
-/* PHILO_HELPERS.C */
+/* HELPERS.C */
 time_t		f_atoi(const char *s);
 
-/* PHILO_THREAD_HELPERS.C */
+/* THREAD.C */
+void		*thread_init(void *arg);
+void		thread_monitor(t_env *env);
+
+/* THREAD_HELPERS.C */
 time_t		time_now(void);
 void		my_usleep(time_t wait);
 void		print_action(t_thread *t, char *act);
+
+/* THREAD_MONITOR.C */
+void		thread_monitor(t_env *env);
+
+/* MEMORY.C */
+void		deallocator(t_env *env);
+t_env		*allocator(size_t size);
+void		mutexes_destroy(t_env *env, uint8_t size);
+void		threads_destroy(t_env *env, uint8_t size);
+void		philo_exit(t_env *env);
 
 #endif
