@@ -41,6 +41,7 @@ static int	threads_init(t_env *env, uint8_t size)
 			return (threads_destroy(env, i), 1);
 		i++;
 	}
+	// return(threads_destroy(env, i), 1);
 	return (0);
 }
 

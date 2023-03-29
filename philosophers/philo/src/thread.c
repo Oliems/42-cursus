@@ -57,6 +57,26 @@ static void	thread_routine(t_thread *t)
 	pthread_mutex_unlock(&(t->env->mtx[(t->id + 1) % t->env->arg[N]]));
 }
 
+static void thread_barrier(t_env *env)
+{
+	static int count = 1;
+
+	pthread_mutex_lock(&(env->common_mtx));
+	count++;
+	pthread_mutex_unlock(&(env->common_mtx));
+	while (1)
+	{
+		pthread_mutex_lock(&(env->common_mtx));
+		if (count == env->arg[N])
+		{
+			pthread_mutex_unlock(&(env->common_mtx));
+			break;
+		}
+		pthread_mutex_unlock(&(env->common_mtx));
+		usleep(100);
+	}
+}
+
 void	*thread_init(void *arg)
 {
 	t_thread		t;
@@ -69,8 +89,9 @@ void	*thread_init(void *arg)
 	t.env->full[t.id] = false;
 	t.env->last_meal[t.id] = t.env->start;
 	pthread_mutex_unlock(&(t.env->common_mtx));
-	while (t.env->exit)
-		;
+/* 	while (t.env->exit)
+		; */
+	thread_barrier(t.env);
 	print_action(&t, MSG_THINK);
 	thread_routine(&t);
 	return (NULL);
