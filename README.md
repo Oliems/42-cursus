@@ -12,4 +12,6 @@ at 42.
 | get_next_line | 100    |
 | minitalk		| 120    |
 | push_swap     | 100    |
-| fdf           |        |
+| fdf           | 103    |
+| philosophers	|        |
+| minishell		|        |
