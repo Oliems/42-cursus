@@ -12,11 +12,9 @@
 
 #include "philo.h"
 
-// TODO: Fix thread_destroy()
-// TODO: Make death message appear faster, when 
-// TODO: Add mutex to prevent philo dying and eating at the same time
 // TODO: Handle n == 1 properly
-
+// TODO: Make death message appear faster
+// TODO: Fix all Helgrind warnings
 int	main(int argc, char *argv[])
 {
 	t_env	*env;
@@ -25,7 +23,7 @@ int	main(int argc, char *argv[])
 		return (printf("%s", MSG_USG), EXIT_SUCCESS);
 	env = philo_init(argc, argv);
 	if (!env)
-		return (printf("malloc() failed\n"), EXIT_FAILURE);
+		return (printf("malloc() failed.\n"), EXIT_FAILURE);
 	thread_monitor(env);
 	return (philo_exit(env), EXIT_SUCCESS);
 }

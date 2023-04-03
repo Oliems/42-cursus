@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static int	mutexes_init(t_env *env, uint8_t size)
+static int	mutexes_init(t_env *env, int size)
 {
 	int	i;
 
@@ -28,9 +28,9 @@ static int	mutexes_init(t_env *env, uint8_t size)
 	return (0);
 }
 
-static int	threads_init(t_env *env, uint8_t size)
+static int threads_init(t_env *env, int size)
 {
-	int	i;
+	int i;
 
 	if (!env->thd)
 		return (1);
@@ -41,7 +41,6 @@ static int	threads_init(t_env *env, uint8_t size)
 			return (threads_destroy(env, i), 1);
 		i++;
 	}
-	// return(threads_destroy(env, i), 1);
 	return (0);
 }
 
@@ -64,8 +63,9 @@ t_env	*philo_init(int argc, char *argv[])
 	p = allocator(f_atoi(argv[1]));
 	if (!p)
 		return (NULL);
-	p->exit = true;
 	philo_init_args(p, argc, argv);
+	p->start = time_now();
+	p->exit = false;
 	if (p->arg[N] <= 0 || p->arg[T2D] < 0 || p->arg[T2E] < 0
 		|| p->arg[T2S] < 0 || p->arg[LIM] == 0)
 		return (deallocator(p), printf("%s\n", MSG_NEG), NULL);
@@ -73,7 +73,5 @@ t_env	*philo_init(int argc, char *argv[])
 		return (deallocator(p), NULL);
 	if (mutexes_init(p, p->arg[N]) || threads_init(p, p->arg[N]))
 		return (deallocator(p), NULL);
-	p->start = time_now();
-	p->exit = false;
 	return (p);
 }

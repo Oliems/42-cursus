@@ -54,7 +54,7 @@ t_env	*allocator(size_t size)
 	return (p);
 }
 
-void	mutexes_destroy(t_env *env, uint8_t size)
+void	mutexes_destroy(t_env *env, int size)
 {
 	int	i;
 
@@ -67,10 +67,7 @@ void	mutexes_destroy(t_env *env, uint8_t size)
 	env->mtx = NULL;
 }
 
-// FIXME: When an error occur during thread creation join causes the
-// program to hang and detach causes possible leaks but during normal termination
-// detach causes possible leaks and join causes no leaks.
-void	threads_destroy(t_env *env, uint8_t size)
+void	threads_destroy(t_env *env, int size)
 {
 	int	i;
 
@@ -78,10 +75,7 @@ void	threads_destroy(t_env *env, uint8_t size)
 	if (!env->thd)
 		return ;
 	while (i < size)
-	{
-		//pthread_detach(env->thd[i++]);
 		pthread_join(env->thd[i++], NULL);
-	}
 	free(env->thd);
 	env->thd = NULL;
 }

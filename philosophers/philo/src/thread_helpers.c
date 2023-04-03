@@ -26,13 +26,16 @@ void	my_usleep(time_t wait)
 
 	t = time_now();
 	while ((time_now() - t) < wait)
-		usleep(150);
+		usleep(1000);
 }
 
-void	print_action(t_thread *t, char *act)
+void	print_action(t_env *env, int id, char *act)
 {
-	pthread_mutex_lock(&(t->env->common_mtx));
-	if (!t->env->exit)
-		printf("%ld %d %s\n", time_now() - t->env->start, t->id + 1, act);
-	pthread_mutex_unlock(&(t->env->common_mtx));
+	time_t now;
+
+	now = time_now();
+	pthread_mutex_lock(&(env->common_mtx));
+	if (!env->exit)
+		printf("%ld %d %s\n", now - env->start, id + 1, act);
+	pthread_mutex_unlock(&(env->common_mtx));
 }

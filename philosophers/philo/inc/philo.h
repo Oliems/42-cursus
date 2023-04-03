@@ -44,7 +44,7 @@ enum
 
 struct s_thread
 {
-	uint8_t		id;
+	int			id;
 	t_env		*env;
 	int			nmeal;
 };
@@ -59,7 +59,6 @@ struct s_env
 	time_t				start;
 	bool				exit;
 	pthread_mutex_t		common_mtx;
-
 };
 
 /* INIT.C */
@@ -76,7 +75,7 @@ void		thread_monitor(t_env *env);
 /* THREAD_HELPERS.C */
 time_t		time_now(void);
 void		my_usleep(time_t wait);
-void		print_action(t_thread *t, char *act);
+void		print_action(t_env *env, int id, char *act);
 
 /* THREAD_MONITOR.C */
 void		thread_monitor(t_env *env);
@@ -84,8 +83,8 @@ void		thread_monitor(t_env *env);
 /* MEMORY.C */
 void		deallocator(t_env *env);
 t_env		*allocator(size_t size);
-void		mutexes_destroy(t_env *env, uint8_t size);
-void		threads_destroy(t_env *env, uint8_t size);
+void		mutexes_destroy(t_env *env, int size);
+void		threads_destroy(t_env *env, int size);
 void		philo_exit(t_env *env);
 
 #endif
