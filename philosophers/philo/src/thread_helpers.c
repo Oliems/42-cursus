@@ -26,7 +26,7 @@ void	my_usleep(time_t wait)
 
 	t = time_now();
 	while ((time_now() - t) < wait)
-		usleep(1000);
+		usleep(500);
 }
 
 void	print_action(t_env *env, int id, char *act)
