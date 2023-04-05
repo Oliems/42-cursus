@@ -22,16 +22,16 @@ time_t	time_now(void)
 
 void	my_usleep(time_t wait)
 {
-	time_t	t;
+	time_t	start;
 
-	t = time_now();
-	while ((time_now() - t) < wait)
-		usleep(500);
+	start = time_now();
+	while ((time_now() - start) < wait)
+		usleep(100);
 }
 
 void	print_action(t_env *env, int id, char *act)
 {
-	time_t now;
+	time_t	now;
 
 	now = time_now();
 	pthread_mutex_lock(&(env->common_mtx));

@@ -32,7 +32,6 @@ INCDIR		:=	inc
 
 INCFLAGS	:= -I$(INCDIR)
 LIBFLAGS	:= -lpthread
-DEBUGFLAGS	:= -g3 -fsanitize=address -fno-omit-frame-pointer -Wno-format-security
 CFLAGS		:=	-Wall -Wextra -g3 # -Werror
 LDFLAGS		:=	$(CFLAGS)
 RMFLAGS		:=	-f

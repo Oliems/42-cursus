@@ -22,14 +22,11 @@ void	deallocator(t_env *env)
 		free(env->thd);
 	if (env->last_meal)
 		free(env->last_meal);
-	if (env->full)
-		free(env->full);
 	if (env->arg)
 		free(env->arg);
 	env->mtx = NULL;
 	env->thd = NULL;
 	env->last_meal = NULL;
-	env->full = NULL;
 	env->arg = NULL;
 	free(env);
 	env = NULL;
@@ -47,9 +44,8 @@ t_env	*allocator(size_t size)
 	p->mtx = malloc(size * sizeof(pthread_mutex_t));
 	p->thd = malloc(size * sizeof(pthread_t));
 	p->last_meal = malloc(size * sizeof(time_t));
-	p->full = malloc(size * sizeof(bool));
 	p->arg = malloc(5 * sizeof(int));
-	if (!(p->mtx) || !(p->thd) || !(p->last_meal) || !(p->full) || !(p->arg))
+	if (!(p->mtx) || !(p->thd) || !(p->last_meal) || !(p->arg))
 		return (deallocator(p), NULL);
 	return (p);
 }

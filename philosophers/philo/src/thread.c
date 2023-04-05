@@ -22,15 +22,15 @@ static void	thread_eat(t_thread *t, int fork1, int fork2)
 	pthread_mutex_lock(&(t->env->common_mtx));
 	t->env->last_meal[t->id] = time_now();
 	pthread_mutex_unlock(&(t->env->common_mtx));
-	usleep(t->env->arg[T2E] * 1000);
-	// my_usleep(t->env->arg[T2E]);
+	my_usleep(t->env->arg[T2E]);
 	pthread_mutex_unlock(&(t->env->mtx[fork1]));
 	pthread_mutex_unlock(&(t->env->mtx[fork2]));
 	t->nmeal++;
-	if (t->nmeal == t->env->arg[LIM] && t->env->full[t->id] == false)
+	if (t->nmeal == t->env->arg[LIM] && t->full == false)
 	{
 		pthread_mutex_lock(&(t->env->common_mtx));
-		t->env->full[t->id] = true;
+		t->full = true;
+		t->env->nfull += 1;
 		pthread_mutex_unlock(&(t->env->common_mtx));
 	}
 }
@@ -38,13 +38,11 @@ static void	thread_eat(t_thread *t, int fork1, int fork2)
 static void	thread_wait(t_thread *t)
 {
 	print_action(t->env, t->id, MSG_SLEEP);
-	// my_usleep(t->env->arg[T2S]);
-	usleep(t->env->arg[T2S] * 1000);
+	my_usleep(t->env->arg[T2S]);
 	print_action(t->env, t->id, MSG_THINK);
 }
 
-// FIXME: Possible mutex hold when prog exists if deadlock occurs
-static void thread_routine(t_thread *t)
+static void	thread_routine(t_thread *t)
 {
 	while (1)
 	{
@@ -52,7 +50,7 @@ static void thread_routine(t_thread *t)
 		if (t->env->exit)
 		{
 			pthread_mutex_unlock(&(t->env->common_mtx));
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&(t->env->common_mtx));
 		if (t->id % 2 == 1)
@@ -65,10 +63,10 @@ static void thread_routine(t_thread *t)
 	}
 }
 
-static void thread_barrier(int n)
+static void	thread_barrier(int n)
 {
-	static int count = 0;
-	static pthread_mutex_t barrier_mtx = PTHREAD_MUTEX_INITIALIZER;
+	static int				count = 0;
+	static pthread_mutex_t	barrier_mtx = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&(barrier_mtx));
 	count++;
@@ -79,23 +77,31 @@ static void thread_barrier(int n)
 		if (count == n)
 		{
 			pthread_mutex_unlock(&(barrier_mtx));
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&(barrier_mtx));
-		usleep(1000);
+		usleep(150);
 	}
 }
 
 void	*thread_init(void *arg)
 {
-	t_thread	t;
-	static int	id = 0;
-	static pthread_mutex_t init_mtx = PTHREAD_MUTEX_INITIALIZER;
+	t_thread				t;
+	static int				id = 0;
+	static pthread_mutex_t	init_mtx = PTHREAD_MUTEX_INITIALIZER;
 
-	if (((t_env *)arg)->arg[N] == 1)
-		return (NULL);
 	t.env = (t_env *)arg;
+	if (t.env->arg[N] == 1)
+	{
+		pthread_mutex_lock(&(t.env->common_mtx));
+		printf("%ld %d %s\n", 0L, 1, MSG_FORK);
+		pthread_mutex_unlock(&(t.env->common_mtx));
+		pthread_mutex_lock(&(t.env->mtx[0]));
+		pthread_mutex_unlock(&(t.env->mtx[0]));
+		return (NULL);
+	}
 	t.nmeal = 0;
+	t.full = false;
 	pthread_mutex_lock(&(init_mtx));
 	t.id = id++;
 	pthread_mutex_unlock(&(init_mtx));

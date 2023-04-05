@@ -28,9 +28,9 @@ static int	mutexes_init(t_env *env, int size)
 	return (0);
 }
 
-static int threads_init(t_env *env, int size)
+static int	threads_init(t_env *env, int size)
 {
-	int i;
+	int	i;
 
 	if (!env->thd)
 		return (1);
@@ -56,9 +56,9 @@ static void	philo_init_args(t_env *env, int argc, char *argv[])
 		env->arg[LIM] = -1;
 }
 
-t_env *philo_init(int argc, char *argv[])
+t_env	*philo_init(int argc, char *argv[])
 {
-	t_env *p;
+	t_env	*p;
 
 	p = allocator(f_atoi(argv[1]));
 	if (!p)
@@ -66,7 +66,7 @@ t_env *philo_init(int argc, char *argv[])
 	p->exit = false;
 	philo_init_args(p, argc, argv);
 	if (p->arg[N] <= 0 || p->arg[T2D] < 0 || p->arg[T2E] < 0
-		|| p->arg[T2S] < 0	|| p->arg[LIM] == 0)
+		|| p->arg[T2S] < 0 || p->arg[LIM] == 0)
 		return (deallocator(p), printf("%s\n", MSG_NEG), NULL);
 	if ((pthread_mutex_init(&(p->common_mtx), NULL)) != 0)
 		return (deallocator(p), NULL);

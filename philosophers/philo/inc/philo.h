@@ -47,13 +47,14 @@ struct s_thread
 	int			id;
 	t_env		*env;
 	int			nmeal;
+	bool		full;
 };
 
 struct s_env
 {
 	int					*arg;
 	time_t				*last_meal;
-	bool				*full;
+	int					nfull;
 	pthread_mutex_t		*mtx;
 	pthread_t			*thd;
 	time_t				start;

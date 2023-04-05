@@ -14,90 +14,62 @@
 
 static int	thread_monitor_full(t_env *env)
 {
-	int	c;
-	int	i;
-
-	i = 0;
-	c = 0;
-	pthread_mutex_lock(&(env->common_mtx));
-	while (i < env->arg[N])
-	{
-		if (env->full[i] == true)
-			c++;
-		i++;
-	}
-	if (c == env->arg[N])
+	if (env->nfull == env->arg[N])
 	{
 		printf("All philosophers have eaten %d times.\n", env->arg[LIM]);
 		env->exit = true;
-		pthread_mutex_unlock(&(env->common_mtx));
 		return (1);
 	}
-	pthread_mutex_unlock(&(env->common_mtx));
-	// my_usleep(1.25 * (env->arg[T2E] + env->arg[T2S]));
-	usleep(1000 * (1.25 * (env->arg[T2E] + env->arg[T2S])));
 	return (0);
 }
 
-static int	thread_monitor_death(t_env *env)
+static int	thread_monitor_death(t_env *env, int i, int j)
 {
-	int			i;
-	time_t		now;
-	time_t		delta;
+	time_t	now;
+	time_t	delta1;
+	time_t	delta2;
 
-	i = 0;
 	now = time_now();
-	pthread_mutex_lock(&(env->common_mtx));
-	while (i < env->arg[N])
+	delta1 = now - env->last_meal[i];
+	delta2 = now - env->last_meal[j];
+	if (delta1 >= env->arg[T2D])
 	{
-		delta = now - env->last_meal[i];
-		if (delta >= env->arg[T2D])
-		{
-			printf("%ld %d %s\n", now - env->start, i + 1, MSG_DIE);
-			env->exit = true;
-			pthread_mutex_unlock(&(env->common_mtx));
-			return (1);
-		}
-		i++;
+		printf("%ld %d %s\n", now - env->start, i + 1, MSG_DIE);
+		env->exit = true;
+		return (1);
 	}
-	pthread_mutex_unlock(&(env->common_mtx));
-	// usleep(1000);
+	else if (delta2 >= env->arg[T2D])
+	{
+		printf("%ld %d %s\n", now - env->start, j + 1, MSG_DIE);
+		env->exit = true;
+		return (1);
+	}
 	return (0);
 }
 
 void	thread_monitor(t_env *env)
 {
-	while (1)
-	{
-		if (thread_monitor_full(env))
-			break ;
-		if (thread_monitor_death(env))
-			break ;
-	}
-}
-
-/* static int	thread_monitor_death(t_env *env)
-{
-	int			i;
-	time_t		now;
-	time_t		delta;
+	int	i;
+	int	j;
 
 	i = 0;
-	now = time_now();
-	pthread_mutex_lock(&(env->common_mtx));
-	while (i < env->arg[N])
+	j = env->arg[N] - 1;
+	while (1)
 	{
-		delta = now - env->last_meal[i];
-		if (delta >= env->arg[T2D])
+		if (i >= j)
 		{
-			printf("%ld %d %s\n", now - env->start, i + 1, MSG_DIE);
-			env->exit = true;
-			pthread_mutex_unlock(&(env->common_mtx));
-			return (1);
+			i = 0;
+			j = env->arg[N] - 1;
 		}
+		pthread_mutex_lock(&(env->common_mtx));
+		if (thread_monitor_death(env, i, j) || thread_monitor_full(env))
+		{
+			pthread_mutex_unlock(&(env->common_mtx));
+			return ;
+		}
+		pthread_mutex_unlock(&(env->common_mtx));
 		i++;
+		j--;
+		usleep(100);
 	}
-	pthread_mutex_unlock(&(env->common_mtx));
-	usleep(1000);
-	return (0);
-} */
+}
