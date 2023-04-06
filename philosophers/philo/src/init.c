@@ -12,6 +12,15 @@
 
 #include "philo.h"
 
+/**
+ * @brief Initialize all mutexes in the mutex array representing the forks.
+ * If an error occur when initializing a mutex, all mutexes previously
+ * created are destroyed.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @param size The size of the array, i.e the number of philosophers.
+ * @return 0 if everything was initialized properly, else returns 1.
+ */
 static int	mutexes_init(t_env *env, int size)
 {
 	int	i;
@@ -28,6 +37,15 @@ static int	mutexes_init(t_env *env, int size)
 	return (0);
 }
 
+/**
+ * @brief Create / initialize all threads in the thread array representing
+ * the philosophers. If an error occur when creating a thread, all
+ * threads previously created are destroyed.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @param size The size of the array, i.e the number of philosophers.
+ * @return
+ */
 static int	threads_init(t_env *env, int size)
 {
 	int	i;
@@ -44,6 +62,17 @@ static int	threads_init(t_env *env, int size)
 	return (0);
 }
 
+/**
+ * @brief Transform the argument passed to the programed into ints. If the
+ * limit (the number of times each philosopher must eat before the
+ * simulation stops) is not specified, we set it to -1 so that the
+ * comparison if (t->nmeal == t->env->arg[LIM]) at the end of thread_eat is
+ * never true.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @param argc The number of arguments.
+ * @param argv The values of the arguments.
+ */
 static void	philo_init_args(t_env *env, int argc, char *argv[])
 {
 	env->arg[N] = f_atoi(argv[1]);
@@ -56,6 +85,14 @@ static void	philo_init_args(t_env *env, int argc, char *argv[])
 		env->arg[LIM] = -1;
 }
 
+/**
+ * @brief Create the environment (env) structur and set it to its defaults
+ * values. If an error occurs at any point, everything is freed.
+ * @param argc The number of arguments.
+ * @param argv The values of the arguments.
+ * @return A pointer to the initialized t_env struct or NULL if an error
+ * occured.
+ */
 t_env	*philo_init(int argc, char *argv[])
 {
 	t_env	*p;

@@ -31,11 +31,8 @@ void	my_usleep(time_t wait)
 
 void	print_action(t_env *env, int id, char *act)
 {
-	time_t	now;
-
-	now = time_now();
 	pthread_mutex_lock(&(env->common_mtx));
 	if (!env->exit)
-		printf("%ld %d %s\n", now - env->start, id + 1, act);
+		printf("%ld %d %s\n", time_now() - env->start, id + 1, act);
 	pthread_mutex_unlock(&(env->common_mtx));
 }

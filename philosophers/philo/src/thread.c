@@ -63,6 +63,12 @@ static void	thread_routine(t_thread *t)
 	}
 }
 
+/**
+ * @brief Simple barrier implementation, it locks threads in the barrier
+ * until all threads have arrived.
+ * @param n The quorum i.e the number of threads to wait for before all
+ * threads can exit the function.
+ */
 static void	thread_barrier(int n)
 {
 	static int				count = 0;

@@ -12,6 +12,13 @@
 
 #include "philo.h"
 
+/**
+ * @brief Check if all philosophers are full, i.e if they have eaten at
+ * least N times.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @return 1 if all philosophers are full, else returns 0.
+ */
 static int	thread_monitor_full(t_env *env)
 {
 	if (env->nfull == env->arg[N])
@@ -23,6 +30,14 @@ static int	thread_monitor_full(t_env *env)
 	return (0);
 }
 
+/**
+ * @brief Checks the death status of two philosophers.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @param i The ID of the first philosopher.
+ * @param j The ID of the second philosopher.
+ * @return 1 if a philosopher has died, else returns 0.
+ */
 static int	thread_monitor_death(t_env *env, int i, int j)
 {
 	time_t	now;
@@ -47,6 +62,14 @@ static int	thread_monitor_death(t_env *env, int i, int j)
 	return (0);
 }
 
+/**
+ * @brief Alternatively call thread_monitor_death() and
+ * thread_monitor_full(). We check the death status of two philosphers at a
+ * time so as to minize the number of time thread_monitor_death() is called
+ * and minimize the number of time we lock the mutex common_mtx.
+ * @param env Structure containing information about the program's
+ * environment.
+ */
 void	thread_monitor(t_env *env)
 {
 	int	i;

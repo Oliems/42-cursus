@@ -12,6 +12,11 @@
 
 #include "philo.h"
 
+/**
+ * @brief Free each member of the struct and the struct itself.
+ * @param env Structure containing information about the program's
+ * environment.
+ */
 void	deallocator(t_env *env)
 {
 	if (!env)
@@ -32,6 +37,12 @@ void	deallocator(t_env *env)
 	env = NULL;
 }
 
+/**
+ * @brief Allocate the env struct and its members. If an error occurs
+ * during one the call to malloc(), everything if free'd.
+ * @param size The size of the arrays, i.e the number of philosophers.
+ * @return A pointer to a t_env struct or NULL if an error occured.
+ */
 t_env	*allocator(size_t size)
 {
 	t_env	*p;
@@ -50,6 +61,12 @@ t_env	*allocator(size_t size)
 	return (p);
 }
 
+/**
+ * @brief Destroy all mutexes and free the array.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @param size The size of the array, i.e the number of philosophers.
+ */
 void	mutexes_destroy(t_env *env, int size)
 {
 	int	i;
@@ -63,6 +80,12 @@ void	mutexes_destroy(t_env *env, int size)
 	env->mtx = NULL;
 }
 
+/**
+ * @brief Join all threads and free the array.
+ * @param env Structure containing information about the program's
+ * environment.
+ * @param size The size of the array, i.e the number of philosophers.
+ */
 void	threads_destroy(t_env *env, int size)
 {
 	int	i;
@@ -76,6 +99,11 @@ void	threads_destroy(t_env *env, int size)
 	env->thd = NULL;
 }
 
+/**
+ * @brief Free everything.
+ * @param env Structure containing information about the program's
+ * environment.
+ */
 void	philo_exit(t_env *env)
 {
 	if (!env)
