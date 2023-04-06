@@ -12,8 +12,6 @@
 
 #include "philo.h"
 
-// FIXME: If env->start = time_now(); is mutex-protected, it may not me
-// initialized for the first few calls to print actions
 int	main(int argc, char *argv[])
 {
 	int		i;

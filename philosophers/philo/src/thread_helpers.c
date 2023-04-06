@@ -33,6 +33,11 @@ void	print_action(t_env *env, int id, char *act)
 {
 	pthread_mutex_lock(&(env->common_mtx));
 	if (!env->exit)
-		printf("%ld %d %s\n", time_now() - env->start, id + 1, act);
+	{
+		if (env->start)
+			printf("%ld %d %s\n", time_now() - env->start, id + 1, act);
+		else
+			printf("%ld %d %s\n", 0L, id + 1, act);
+	}
 	pthread_mutex_unlock(&(env->common_mtx));
 }
