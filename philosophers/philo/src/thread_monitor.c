@@ -93,6 +93,5 @@ void	thread_monitor(t_env *env)
 		pthread_mutex_unlock(&(env->common_mtx));
 		i++;
 		j--;
-		usleep(100);
 	}
 }

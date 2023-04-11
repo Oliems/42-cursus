@@ -42,10 +42,24 @@ static void	thread_wait(t_thread *t)
 	print_action(t->env, t->id, MSG_THINK);
 }
 
+// FIXME: Reword comment
+/**
+ * @brief The main loop of the thread. We use delta to introduce a bit of
+ * waiting, so that threads don't get in the way of each other. This
+ * formula ensure that when there is very little room for waiting (e.g with
+ * parameters 4 410 200 200), the waiting time is very small (1 ms in the
+ * previous example). However when there is a more room for waiting (e.g
+ * 198 610 200 200), we can wait a bit longer (21 ms in the previous
+ * example).
+ * @param t A struct containing the philosopher's information.
+ */
 static void	thread_routine(t_thread *t)
 {
+	time_t delta = t->env->arg[T2D] - (t->env->arg[T2E] + t->env->arg[T2S]);
 	while (1)
 	{
+		if (!(t->id % 2))
+			my_usleep(delta * 0.33);
 		pthread_mutex_lock(&(t->env->common_mtx));
 		if (t->env->exit)
 		{
@@ -58,8 +72,6 @@ static void	thread_routine(t_thread *t)
 		else
 			thread_eat(t, (t->id + 1) % t->env->arg[N], t->id);
 		thread_wait(t);
-		if ((t->env->arg[N] % 2) && (t->id % 2 == 0))
-			usleep(t->env->arg[T2E]);
 	}
 }
 
@@ -116,3 +128,51 @@ void	*thread_init(void *arg)
 	thread_routine(&t);
 	return (NULL);
 }
+
+
+/* static void	thread_routine(t_thread *t)
+{
+	while (1)
+	{
+		if ((t->env->arg[N] % 2) && (t->id % 2 == 0))
+			my_usleep(t->env->arg[T2E] * 0.05);
+		else if (!(t->env->arg[N] % 2) && (t->id % 2 == 0))
+			my_usleep(t->env->arg[T2E] * 0.05);
+		pthread_mutex_lock(&(t->env->common_mtx));
+		if (t->env->exit)
+		{
+			pthread_mutex_unlock(&(t->env->common_mtx));
+			break ;
+		}
+		pthread_mutex_unlock(&(t->env->common_mtx));
+		if (t->id % 2 == 1)
+			thread_eat(t, t->id, (t->id + 1) % t->env->arg[N]);
+		else
+			thread_eat(t, (t->id + 1) % t->env->arg[N], t->id);
+		thread_wait(t);
+	}
+} */
+
+/* static void	thread_routine(t_thread *t)
+{
+	time_t delta = t->env->arg[T2D] - (t->env->arg[T2E] + t->env->arg[T2S]);
+	while (1)
+	{
+		if ((t->env->arg[N] % 2) && (t->id % 2 == 0))
+			my_usleep(delta * 0.1);
+		else if (!(t->env->arg[N] % 2) && (t->id % 2 == 0))
+			my_usleep(delta * 0.1);
+		pthread_mutex_lock(&(t->env->common_mtx));
+		if (t->env->exit)
+		{
+			pthread_mutex_unlock(&(t->env->common_mtx));
+			break ;
+		}
+		pthread_mutex_unlock(&(t->env->common_mtx));
+		if (t->id % 2 == 1)
+			thread_eat(t, t->id, (t->id + 1) % t->env->arg[N]);
+		else
+			thread_eat(t, (t->id + 1) % t->env->arg[N], t->id);
+		thread_wait(t);
+	}
+} */
