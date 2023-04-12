@@ -32,7 +32,7 @@ INCDIR		:=	inc
 
 INCFLAGS	:= -I$(INCDIR)
 LIBFLAGS	:= -lpthread
-CFLAGS		:=	-Wall -Wextra -g3 # -Werror
+CFLAGS		:=	-Wall -Wextra -Werror -Ofast -march=native -ftree-parallelize-loops=1
 LDFLAGS		:=	$(CFLAGS)
 RMFLAGS		:=	-f
 
