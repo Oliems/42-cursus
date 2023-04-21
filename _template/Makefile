@@ -14,7 +14,7 @@
 # We can also use make -d.
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
-NAME		:=	philo
+NAME		:=	template
 SRCS		:=	main.c
 
 CC			:=	cc
