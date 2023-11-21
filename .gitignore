@@ -4,12 +4,22 @@
 !*/
 # Whitelist the file you're interested in.
 !*.c
+!*.sh
+!*.cpp
 !*.h
+!*.hpp
+!*.md
 !*.txt
 !*.pdf
-!Makefile
-!.gitignore
-!*.sh
-!*.md
 !*.png
 !*.fdf
+!*.xlsx
+!*.xpm
+!*.cub
+!*.yml
+!*.json
+!*.csv
+!Makefile
+!.gitignore
+!.clang-format
+!.env
