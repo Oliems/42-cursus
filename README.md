@@ -2,11 +2,11 @@
 This repository contains all the projects I have done so far for my cursus
 at 42.
 
-The following projects
-
-TODO Make sure that projects which require mlc / libft and mlx can compile using the mlc / libft and mlx in the parent folder
-TODO Add mlx_linux as git submodule.
-TODO Add credits for group projects.
++ TODO Make sure that projects which require mlc / libft and mlx can compile using the mlc / libft and mlx in the parent folder
++ TODO Add mlx_linux as git submodule.
++ TODO Add mlc as git submodule.
++ TODO Add credits for group projects.
++ TODO Add grades.
 
 ## Grades
 
