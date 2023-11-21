@@ -23,3 +23,5 @@
 !.gitignore
 !.clang-format
 !.env
+!.clang-format-norme
+!.clang-format-cpp
