@@ -25,3 +25,5 @@
 !.env
 !.clang-format-norme
 !.clang-format-cpp
+!Dockerfile
+!*.conf
