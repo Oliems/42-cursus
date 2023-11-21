@@ -6,7 +6,6 @@ at 42.
 + TODO Add mlx_linux as git submodule.
 + TODO Add mlc as git submodule.
 + TODO Add credits for group projects.
-+ TODO Add grades.
 
 ## Grades
 
@@ -15,10 +14,15 @@ at 42.
 | libft         | 125    |
 | ft_printf     | 100    |
 | b2br          | 110    |
-| get_next_line | 100    |
+| get_next_line | 105    |
 | minitalk      | 120    |
 | push_swap     | 100    |
 | fdf           | 103    |
-| philosophers  |        |
-| minishell     |        |
-|               |
+| philosophers  | 100    |
+| minishell     | 101    |
+| NetPractice   | 100    |
+| cub3d         | 110    |
+| Inception     | 100    |
+| CPP 00 to 09  | 100    |
+| irc           |        |
+| Transcendence |        |
