@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../mlc/inc/mlc.h"
+# include "mlc.h"
 # include <dirent.h>            /* opendir */
 # include <fcntl.h>             /* ?? */
 # include <linux/limits.h>      /* PATH_MAX */

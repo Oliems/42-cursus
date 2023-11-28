@@ -18,6 +18,7 @@
 # include <math.h>			/* fabs(3), fmax(3) */
 # include <stdlib.h> 		/* malloc(3) */
 # include <stdbool.h>		/* __Bool */
+# include <stdio.h>			/* */
 
 # define WINW 1000
 # define WINH 1000
@@ -99,6 +100,7 @@ void		matrix_destroy(t_matrix m, int h);
 t_matrix	matrix_create(int w, int h);
 
 /* MISC_HELPERS.C */
+int			f_perror(char * error);
 void		print_error(int err);
 void		fdf_free_if(t_fdf *env);
 

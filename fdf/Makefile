@@ -33,8 +33,8 @@ OBJDIR		:=	obj
 INCDIR		:=	inc
 SYSINC		:=	/usr/include
 SYSLIB		:=	/usr/lib
-MLXDIR		:=	mlx_linux
-LFTDIR		:=	libft
+MLXDIR		:=	../_submodules/minilibx-linux
+LFTDIR		:=	../_submodules/mlc
 
 INCFLAGS	:= -I$(INCDIR) -I$(SYSINC) -I$(MLXDIR) -I$(LFTDIR)/inc
 LIBFLAGS	:= -L$(MLXDIR) -L$(LFTDIR) -L$(SYSLIB) -lmlx_Linux -lft -lXext -lX11 -lm

@@ -60,7 +60,7 @@ OBJDIR		:=	obj
 INCDIR		:=	inc
 SYSINC		:=	/usr/include
 SYSLIB		:=	/usr/lib
-MLCDIR		:=	mlc
+MLCDIR		:=	../_submodules/mlc
 
 INCFLAGS	:= -I$(INCDIR) -I$(SYSINC) -I$(MLCDIR)/inc
 LIBFLAGS	:= -L$(MLCDIR) -lreadline -lft

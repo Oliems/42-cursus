@@ -12,6 +12,11 @@
 
 #include "fdf.h"
 
+int		f_perror(char * error)
+{
+	return (write(STDERR_FILENO, error, f_strlen(error)));
+}
+
 /**
  * @brief Print the error message corresponding to the error code.
  * @param err The error code.
