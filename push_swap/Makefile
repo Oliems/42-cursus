@@ -48,7 +48,7 @@ $(NAME): $(OBJECTS)
 	$(LINK.o) -o $(NAME) $^
 
 clean:
-	$(REMOVE) $(OBJECTS)
+	rm -rf obj/
 
 fclean: clean
 	$(REMOVE) $(NAME)

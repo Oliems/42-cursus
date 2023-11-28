@@ -56,7 +56,7 @@ $(NAME): $(OBJECTS)
 	$(CC) $(OBJECTS) $(INCFLAGS) $(LIBFLAGS) -o $(NAME)
 
 clean:
-	$(REMOVE) $(OBJECTS)
+	rm -rf obj/
 
 fclean: clean
 	$(REMOVE) $(NAME)

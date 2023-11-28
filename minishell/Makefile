@@ -91,7 +91,7 @@ libft:
 	make -C $(MLCDIR)
 
 clean:
-	$(REMOVE) $(OBJECTS)
+	rm -rf obj/
 	make -C $(MLCDIR) clean
 
 fclean: clean

@@ -70,7 +70,7 @@ mlx:
 	make -C $(MLXDIR)
 
 clean:
-	$(REMOVE) $(OBJECTS)
+	rm -rf obj/
 	make -C $(MLXDIR) clean
 	make -C $(LFTDIR) clean
 

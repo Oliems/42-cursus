@@ -61,7 +61,7 @@ $(CLIENT): $(OBJECTS_CL)
 	$(LINK.o) -o $(CLIENT) $^
 
 clean:
-	$(REMOVE) $(OBJECTS_SE) $(OBJECTS_CL)
+	rm -rf obj/
 
 fclean: clean
 	$(REMOVE) $(SERVER) $(CLIENT)

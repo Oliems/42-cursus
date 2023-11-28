@@ -47,7 +47,7 @@ $(NAME): $(OBJECTS)
 	ar -rcs $(NAME) $^
 
 clean:
-	$(REMOVE) $(OBJECTS)
+	rm -rf obj/
 
 fclean: clean
 	$(REMOVE) $(NAME)

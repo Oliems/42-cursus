@@ -37,7 +37,7 @@ int	ft_putstr_fd(char *s, int fd)
 	return (write(fd, s, ft_strlen(s)));
 }
 
-int	ft_putnbr_base(uint64_t n, char *base)
+int	ft_putnbr_base(int64_t n, char *base)
 {
 	int		i;
 	int		l;

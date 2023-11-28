@@ -5,12 +5,12 @@ This repository contains all the projects I have done for the common core of 42.
 
 | Projects          | Grades |
 | ----------------- | ------ |
-| Libft             | 125    | x |
-| ft_printf         | 100    |
-| Born2beroot       | 110    |
-| get_next_line     | 105    |
-| minitalk          | 120    |
-| push_swap         | 100    |
+| Libft             | 125    | x
+| ft_printf         | 100    | x
+| Born2beroot       | 110    | x
+| get_next_line     | 105    | x
+| minitalk          | 120    | x
+| push_swap         | 100    | x
 | FdF               | 103    |
 | Philosophers      | 100    |
 | minishell         | 101    |

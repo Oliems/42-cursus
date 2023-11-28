@@ -29,7 +29,7 @@ int			ft_putchar_fd(char c, int fd);
 
 /* FT_UTILS_UTILS */
 int			ft_putstr_fd(char *s, int fd);
-int			ft_putnbr_base(uint64_t n, char *base);
+int			ft_putnbr_base(int64_t n, char *base);
 int			ft_putnbr_fd(int64_t n, int fd);
 uint64_t	ft_strlen(const char *s);
 uint64_t	ft_abs(int64_t i);
