@@ -13,6 +13,20 @@
 #include "libft.h"
 
 /**
+ * @brief The isspace(3) function tests for the white-space characters. For
+ * any locale, this includes the following standard characters: '\t', '\n',
+ * '\v', '\f', '\r', ' '.
+ * @param c The character to test.
+ * @return Zero if the character tests false, non-zero if the character
+ * tests true.
+ */
+static int	ft_isspace(int c)
+{
+	return (c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r' || c == ' ');
+}
+
+/**
  * @brief The atoi(3) function converts the initial portion of the string
  * pointed to by s to int representation.
  * @param s The string to convert.

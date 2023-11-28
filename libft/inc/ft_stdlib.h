@@ -16,7 +16,6 @@
 # include <stddef.h>
 
 int		ft_atoi(const char *s);
-double	ft_atof(const char *s);
 void	*ft_calloc(size_t n, size_t m);
 
 #endif

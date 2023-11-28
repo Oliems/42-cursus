@@ -13,6 +13,19 @@
 #include "libft.h"
 
 /**
+ * @brief Compute the absolute value of the integer n.
+ * @param n The number we want to compute.
+ * @return An unsigned integer to ensure that we can compute abs(INT_MIN).
+ */
+static uintmax_t	ft_abs(intmax_t n)
+{
+	if (n < 0)
+		return (-n);
+	else
+		return (n);
+}
+
+/**
  * @brief Outputs the string 's' to the given file descriptor.
  * @param c The string to output.
  * @param fd The file descriptor on which to write.

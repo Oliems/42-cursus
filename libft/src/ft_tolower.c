@@ -13,6 +13,17 @@
 #include "libft.h"
 
 /**
+ * @brief The isupper(3) function tests for any upper-case letters.
+ * @param c The character to test.
+ * @return Zero if the character tests false, non-zero if the character
+ * tests true.
+ */
+static int	ft_isupper(int c)
+{
+	return (c >= 'A' && c <= 'Z');
+}
+
+/**
  * @brief The tolower(3) function converts an upper-case letter to the
  * corresponding lower-case letter.
  * @param c The character to convert.

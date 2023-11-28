@@ -13,6 +13,38 @@
 #include "libft.h"
 
 /**
+ * @brief Compute the absolute value of the integer n.
+ * @param n The number we want to compute.
+ * @return An unsigned integer to ensure that we can compute abs(INT_MIN).
+ */
+static uintmax_t	ft_abs(intmax_t n)
+{
+	if (n < 0)
+		return (-n);
+	else
+		return (n);
+}
+
+/*
+** Compute the number of digits an integer will have in a given base, including
+** the minus sign if n < 0.
+*/
+static int	ft_ndigit(int n, int baselen)
+{
+	int	l;
+
+	l = 0;
+	if (n <= 0)
+		l += 1;
+	while (n)
+	{
+		l++;
+		n /= baselen;
+	}
+	return (l);
+}
+
+/**
  * @brief Allocates (with malloc(3)) and returns a string representing the
  * integer received as an argument. Negative numbers must be handled.
  * @param n The integer to convert.

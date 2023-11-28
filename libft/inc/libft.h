@@ -22,13 +22,5 @@
 # include "ft_list.h"
 # include "ft_stdlib.h"
 # include "ft_string.h"
-# include "get_next_line.h"
-# include "ft_printf.h"
-
-/* PERSONAL */
-int			ft_permute(void *b, int n);
-int			ft_permute_int(int *arr, int n);
-int			ft_ndigit(int n, int baselen);
-uintmax_t	ft_abs(intmax_t n);
 
 #endif

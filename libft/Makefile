@@ -13,21 +13,15 @@
 # Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	libft.a
 
-SRCS		:=	ft_abs.c \
-				ft_atof.c \
-				ft_atoi.c \
+SRCS		:=	ft_atoi.c \
 				ft_bzero.c \
 				ft_calloc.c \
 				ft_isalnum.c \
 				ft_isalpha.c \
 				ft_isascii.c \
 				ft_isdigit.c \
-				ft_islower.c \
 				ft_isprint.c \
-				ft_isspace.c \
-				ft_isupper.c \
 				ft_itoa.c \
-				ft_itoa_base.c \
 				ft_lstadd_back.c \
 				ft_lstadd_front.c \
 				ft_lstclear.c \
@@ -41,16 +35,11 @@ SRCS		:=	ft_abs.c \
 				ft_memcmp.c \
 				ft_memcpy.c \
 				ft_memmove.c \
-				ft_memrchr.c \
 				ft_memset.c \
-				ft_ndigit.c \
-				ft_permute_char.c \
-				ft_permute_int.c \
 				ft_putchar_fd.c \
 				ft_putendl_fd.c \
 				ft_putnbr_fd.c \
 				ft_putstr_fd.c \
-				ft_reverse.c \
 				ft_split.c \
 				ft_strchr.c \
 				ft_strdup.c \
@@ -61,27 +50,18 @@ SRCS		:=	ft_abs.c \
 				ft_strlen.c \
 				ft_strmapi.c \
 				ft_strncmp.c \
-				ft_strnlen.c \
 				ft_strnstr.c \
 				ft_strrchr.c \
 				ft_strtrim.c \
 				ft_substr.c \
 				ft_tolower.c \
-				ft_toupper.c \
-				ft_strtolst.c \
-				ft_gnl.c \
-				ft_gnl_utils.c \
-				ft_printf.c \
-				ft_printf_utils.c \
-				ft_isint.c \
-				ft_isreal.c
+				ft_toupper.c
 
 CC			:=	cc
 RM			:=	rm
 
 CFLAGS		:=	-Wall -Wextra -Werror
 LDFLAGS		:=	-Wall
-RMFLAGS		:=	-f
 
 SRCDIR		:=	src
 OBJDIR		:=	obj
@@ -92,7 +72,6 @@ HEADERS		:=	$(INCDIR)/libft.h
 
 LINK.o		:=	$(CC) $(LDFLAGS)
 COMPILE.c	:=	$(CC) -I$(INCDIR) $(CFLAGS) -c
-REMOVE		:=	$(RM) $(RMFLAGS)
 
 SOURCES		:=	$(addprefix $(SRCDIR)/, $(SRCS))
 OBJECTS		:=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
@@ -109,11 +88,11 @@ $(NAME): $(OBJECTS)
 	ar -rcs $(NAME) $^
 
 clean:
-	$(REMOVE) $(OBJECTS)
+	rm -rf obj/
 
 fclean: clean
-	$(REMOVE) $(NAME)
+	rm $(NAME)
 
 re: fclean all
 
-.PHONY:	all bonus clean fclean re
+.PHONY:	all clean fclean re
