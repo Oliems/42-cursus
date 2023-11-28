@@ -21,6 +21,7 @@
 !*.csv
 !Makefile
 !.gitignore
+!.gitmodules
 !.clang-format
 !.env
 !.clang-format-norme
