@@ -19,7 +19,7 @@ This repository contains all the projects I have done for the common core of 42.
 | Inception         | 100    |
 | CPP Modules 00-09 | 100    |
 | ft_irc            | 125    |
-| ft_transcendence  |        |
+| ft_transcendence  | 125    |
 
 ## Credits
 
