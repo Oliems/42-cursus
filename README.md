@@ -23,5 +23,5 @@ This repository contains all the projects I have done for the common core of 42.
 
 ## Credits
 
-- The *minishell* and *cub3d* projects were done with [V-Burton](https://github.com/V-Burton).
-- The *ft_irc* project was done with [V-Burton](https://github.com/V-Burton) and [touline-p](https://github.com/touline-p).
+- The *minishell* and *cub3d* projects were done with [Victor Burton](https://github.com/V-Burton).
+- The *ft_irc* project was done with [Victor Burton](https://github.com/V-Burton) and [Brieuc Poumeau](https://github.com/touline-p).
